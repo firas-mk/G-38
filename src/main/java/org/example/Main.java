@@ -30,6 +30,9 @@ public class Main {
 
         } else if (UserInput == 3) {
             System.out.println(ConsoleColors.YELLOW + "You are now logged in as"+ ConsoleColors.RED_BOLD_BRIGHT + " [Admin] " + ConsoleColors.RESET );
+        } else{
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Make sure to enter a valid number, choose between 1, 2 or 3 " + ConsoleColors.RESET );
+
         }
 
     }
