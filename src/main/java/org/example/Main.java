@@ -1,19 +1,37 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        System.out.println("\n" + ConsoleColors.ORANGE_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT + "-------" +
+                "| Login |" +
+                "\t\t\t\t\t  " + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.ORANGE_BACKGROUND_BRIGHT + ConsoleColors.WHITE_BOLD_BRIGHT + "-------" +
+                "| Powered by Schibsted |" + "\t\t  " +
+                ConsoleColors.RESET);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
+        System.out.println("| Login by typing in the number of one of the options below |");
+        System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Turist\n" +
+                           "[2] Guide / Company\n" +
+                           "[3] Admin" + ConsoleColors.RESET);
+        Scanner UserLoginOption = new Scanner(System.in);
+        Integer  UserInput = Integer.valueOf(UserLoginOption.nextLine());
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+
+        // checks if the user is an Admin or Tourist/Guide
+        if (UserInput == 1){
+            System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Turist]" + ConsoleColors.RESET);
+
+
+        }else if (UserInput == 2){
+            System.out.println(ConsoleColors.YELLOW + "You are now logged in as"+ ConsoleColors.RED_BOLD_BRIGHT + " [Guide/Company] " + ConsoleColors.RESET );
+
+        } else if (UserInput == 3) {
+            System.out.println(ConsoleColors.YELLOW + "You are now logged in as"+ ConsoleColors.RED_BOLD_BRIGHT + " [Admin] " + ConsoleColors.RESET );
         }
+
     }
+
 }
