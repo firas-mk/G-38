@@ -88,7 +88,76 @@ public class Functions {
                                                               "[3] Log out" + ConsoleColors.RESET);
         Scanner userLoginOption = new Scanner(System.in);
         Integer  userInput = Integer.valueOf(userLoginOption.nextLine());
+        switch (userInput) {
+            case 1:
+                searchAndDisplayTours();
+                break;
+            case 2:
+
+                // Implement logic for showing favorite tours
+
+                break;
+            case 3:
+
+                // Implement logout logic
+
+                break;
+            default:
+                System.out.println(ConsoleColors.RED + "▢ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
+                turistNavigationOptions();
+        }
     }
+
+    public static void searchAndDisplayTours() {
+        System.out.println("Available Cities:");
+        System.out.println("1 - Oslo");
+        System.out.println("2 - Bergen");
+        System.out.println("3 - Kristiansand");
+        System.out.println("4 - Halden");
+
+        Scanner userInputScanner = new Scanner(System.in);
+        int selectedCity = -1;
+
+        while (selectedCity < 1 || selectedCity > 4) {
+            System.out.print("Enter the number of the city you want to explore (1-4): ");
+            selectedCity = Integer.parseInt(userInputScanner.nextLine());
+        }
+
+        // Now, you can add tours for the selected city
+
+        String[] cityTours = null;
+
+        switch (selectedCity) {
+            case 1: // Oslo
+                cityTours = new String[]{"Tour 1: Oslo City Tour", "Tour 2: Oslo Fjord Cruise"};
+                break;
+            case 2: // Bergen
+                cityTours = new String[]{"Tour 1: Bergen Harbor Tour", "Tour 2: Bergen Mountain Hike"};
+                break;
+            case 3: // Kristiansand
+                cityTours = new String[]{"Tour 1: Kristiansand Beach Day", "Tour 2: Kristiansand Cultural Tour"};
+                break;
+            case 4: // Halden
+                cityTours = new String[]{"Tour 1: Halden Castle Tour", "Tour 2: Halden Forest Walk"};
+                break;
+        }
+
+        System.out.println("Tours in the selected city:");
+        for (int i = 0; i < cityTours.length; i++) {
+            System.out.println((i + 1) + " - " + cityTours[i]);
+        }
+
+        int selectedTour = -1;
+
+        while (selectedTour < 1 || selectedTour > cityTours.length) {
+            System.out.print(" Enter the number of the tour you want to book (1-" + cityTours.length + "): ");
+            selectedTour = Integer.parseInt(userInputScanner.nextLine());
+        }
+
+        // You can add further logic here to handle the selected tour, e.g., book it or perform other actions.
+    }
+
+
 
 
 

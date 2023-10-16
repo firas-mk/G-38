@@ -4,8 +4,6 @@ package Classes;
 
 public class Admin {
 
-
-
     public void administrerKontoer() {
         /*More code goes here*/
     }
