@@ -77,11 +77,11 @@ public class Functions {
      *      <li> logout
      *      <li> etc.
      * </ul>
-    */ //DESC-Javadoc --> turistNavigatonOptions()
+    */ //DESC-Javadoc ---> turistNavigatonOptions()
     public static void turistNavigationOptions(){
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
         //System.out.println("| In order to navigate, choose one of the options below:    |");
-        System.out.println("| You are now in the main menu, choose one of the options below:    |");
+        System.out.println("|  You are now in the main menu, choose one of the options below:    |");
         System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
         System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Search Torus\n" +
                                                               "[2] Show favorite\n" +
