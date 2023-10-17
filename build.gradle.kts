@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("top.jfunc.json:Json-Gson:1.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
