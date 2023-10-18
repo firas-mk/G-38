@@ -1,0 +1,25 @@
+[
+  {
+    "location": "Halden Canal",
+    "date": "22.10.2023",
+    "time": "12:00",
+    "description": "Boat tour along the picturesque Halden Canal",
+    "price": "190 kr"
+  }
+,{
+  "location": "Rød Manor",
+  "date": "27.10.2023",
+  "time": "15:30",
+  "description": "Historical tour of the Rød Manor estate",
+  "price": "175 kr"
+}
+,
+  {
+    "location": "Idd Church",
+    "date": "29.10.2023",
+    "time": "11:00",
+    "description": "Guided tour of the charming Idd Church",
+    "price": "160 kr"
+  }
+
+]
