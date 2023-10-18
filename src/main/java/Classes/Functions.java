@@ -123,7 +123,7 @@ public class Functions {
         }
     }
 
-    // (KHALIL) NEW: implementation of searchAndDisplayTours() function, and JSON-files with data has been added
+    // implementation of searchAndDisplayTours() function
     public static void searchAndDisplayTours() {
         System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + ConsoleColors.YELLOW_UNDERLINED + "Available Cities:" + ConsoleColors.RESET + ConsoleColors.ORANGE_BOLD_BRIGHT
                 + "\n[1] Oslo"
@@ -168,7 +168,7 @@ public class Functions {
 
     }
 
-    // (KHALIL) NEW: implementation of getToursFromJSONFile() function, now data from JSON files can be readed
+    // implementation of getToursFromJSONFile() function, now data from JSON files can be read
     public static void getToursFromJSONfile(String file){
        try{
            // ObjectMapper to read from the JSON file
