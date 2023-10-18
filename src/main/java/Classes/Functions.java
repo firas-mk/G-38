@@ -22,27 +22,26 @@ public class Functions {
         Integer  userInput = Integer.valueOf(userLoginOption.nextLine());
 
         switch (userInput) {
-            case 1 -> {
+            case 1:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Turist]" + ConsoleColors.RESET);
                 turistNavigationOptions();
-            }
-            case 2 -> {
+                break;
+            case 2:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide / Company]" + ConsoleColors.RESET);
-            }
+                break;
             /*More code goes here, such as Guide Panel etc.*/
-            case 3 -> {
+            case 3:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
-            }
+                break;
             /*More code goes here, such as Admin Panel etc.*/
-            default -> {
+            default:
                 System.out.println(ConsoleColors.RED + "▢ invalid number! Enter 1, 2 or 3 " + ConsoleColors.RESET);
                 loginPanel();
             }
         }
-    }
     public static void loadingProgress(){
         int totalTasks = 5;
 
@@ -92,10 +91,11 @@ public class Functions {
         System.out.println("| You are now in the main menu, choose one of the options below |");
         System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
         System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Search Tours\n" +
-                                                              "[2] Show Favorite\n" +
-                                                              "[3] Log Out" + ConsoleColors.RESET);
+                "[2] Show Favorite\n" +
+                "[3] Log Out" + ConsoleColors.RESET);
         Scanner userLoginOption = new Scanner(System.in);
         Integer  userInput = Integer.valueOf(userLoginOption.nextLine());
+
         switch (userInput) {
             case 1:
                 searchAndDisplayTours();
@@ -170,42 +170,43 @@ public class Functions {
 
     // implementation of getToursFromJSONFile() function, now data from JSON files can be read
     public static void getToursFromJSONfile(String file){
-       try{
-           // ObjectMapper to read from the JSON file
-           ObjectMapper objectMapper = new ObjectMapper();
+        try{
+            // ObjectMapper to read from the JSON file
+            ObjectMapper objectMapper = new ObjectMapper();
 
-           //read JSON-filen
-           JsonNode jsonFile = objectMapper.readTree(new File(file));
-           // if the json-file is empty (which means if there is no tours available) a message will be printed to the user
-           if (jsonFile.isEmpty()){
-               System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "|| Oops, looks like there is no tours available! ||" + ConsoleColors.RESET);
-               searchAndDisplayTours();
-           }else {
-           Integer tourNr = 0;
-           //Iterate throw and get information
-           for(JsonNode tour : jsonFile){
-               tourNr++;
-               String location = tour.get("location").asText();
-               String date = tour.get("date").asText();
-               String time = tour.get("time").asText();
-               String description = tour.get("description").asText();
-               String price = tour.get("price").asText();
+            //read JSON-filen
+            JsonNode jsonFile = objectMapper.readTree(new File(file));
+            // if the json-file is empty (which means if there is no tours available) a message will be printed to the user
+            if (jsonFile.isEmpty()){
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "|| Oops, looks like there is no tours available! ||" + ConsoleColors.RESET);
+                searchAndDisplayTours();
+            }else {
+                Integer tourNr = 0;
+                //Iterate throw and get information
+                for(JsonNode tour : jsonFile){
+                    tourNr++;
+                    String location = tour.get("location").asText();
+                    String date = tour.get("date").asText();
+                    String time = tour.get("time").asText();
+                    String description = tour.get("description").asText();
+                    String price = tour.get("price").asText();
 
-               System.out.println(
-                       "\n"+ ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT+ "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourNr + ConsoleColors.RESET +
-                       "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Location: " + location +
-                       "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Date: " + date +
-                       "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Time: " + time +
-                       "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Description: " + description +
-                       "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Price: " + price
-               );
-           }
-       }} catch (IOException e) {
-           e.printStackTrace();
-       }
+                    System.out.println(
+                            "\n"+ ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT+ "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourNr + ConsoleColors.RESET +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Location: " + location +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Date: " + date +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Time: " + time +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Description: " + description +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Price: " + price
+                    );
+                }
+            }} catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
 
 }
+
