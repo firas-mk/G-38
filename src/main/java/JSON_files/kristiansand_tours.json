@@ -1,0 +1,26 @@
+[
+  {
+    "location": "Kristiansand Cathedral",
+    "date": "24.10.2023",
+    "time": "15:00",
+    "description": "Architectural tour of the beautiful cathedral",
+    "price": "170 kr"
+  }
+,
+  {
+    "location": "Bystranda Beach",
+    "date": "26.10.2023",
+    "time": "10:30",
+    "description": "Relaxing beachfront walk at Bystranda",
+    "price": "150 kr"
+  }
+,
+  {
+    "location": "Kristiansand Boardwalk",
+    "date": "31.10.2023",
+    "time": "14:00",
+    "description": "Stroll along the scenic boardwalk in Kristiansand",
+    "price": "165 kr"
+  }
+
+]
