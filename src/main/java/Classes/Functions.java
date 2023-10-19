@@ -250,12 +250,7 @@ public class Functions {
             } else if (choice > 0 && choice <= favoriteTours.size()) {
                 // User selected a valid tour
                 String selectedTourInfo = favoriteTours.get(choice - 1);
-                String[] tourDetails = selectedTourInfo.split(" - Tour ");
-                int cityNumber = 0; // You need to parse the city number from the tourDetails array
-                int selectedTourNumber = Integer.parseInt(tourDetails[1]);
-
-                // Now you can display the tour details based on the cityNumber and selectedTourNumber
-                displayTourDetails(cityNumber, selectedTourNumber);
+                displayTourDetails(selectedTourInfo);
             } else {
                 System.out.println("Invalid choice. Please enter a valid number.");
                 showFavoriteTours();
@@ -263,46 +258,89 @@ public class Functions {
         }
     }
 
-    public static void displayTourDetails(int cityNumber, int tourNumber) {
-        String cityName;
+
+    public static void displayTourDetails(String tourInfo) {
+        String[] tourParts = tourInfo.split(" - Tour ");
+
+        if (tourParts.length != 2) {
+            System.out.println(ConsoleColors.RED + "◆ Invalid tour format!" + ConsoleColors.RESET);
+            return;
+        }
+
+        String cityName = tourParts[0];
+        int tourNumber = Integer.parseInt(tourParts[1]);
+
         String jsonFilePath;
 
-        switch (cityNumber) {
-            case 1: // Oslo
-                cityName = "Oslo";
+        // Map city names to JSON file paths
+        switch (cityName) {
+            case "Oslo":
                 jsonFilePath = "src/main/java/JSON_files/oslo_tours.json";
                 break;
-            case 2: // Bergen
-                cityName = "Bergen";
+            case "Bergen":
                 jsonFilePath = "src/main/java/JSON_files/bergen_tours.json";
                 break;
-            case 3: // Kristiansand
-                cityName = "Kristiansand";
+            case "Kristiansand":
                 jsonFilePath = "src/main/java/JSON_files/kristiansand_tours.json";
                 break;
-            case 4: // Halden
-                cityName = "Halden";
+            case "Halden":
                 jsonFilePath = "src/main/java/JSON_files/halden_tours.json";
                 break;
             default:
-                System.out.println(ConsoleColors.RED + "◆ Invalid city number!" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED + "◆ Invalid city name!" + ConsoleColors.RESET);
                 return;
         }
 
-        // Implement code to read and display details of the selected tour
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonFile = objectMapper.readTree(new File(jsonFilePath));
 
-            // Your code to find and display tour details goes here
-            for (JsonNode tour : jsonFile) {
-                // Check if this is the selected tour based on tourNumber
-                // Display the details if found
+            if (tourNumber < 1 || tourNumber > jsonFile.size()) {
+                System.out.println(ConsoleColors.RED + "◆ Invalid tour number!" + ConsoleColors.RESET);
+                return;
             }
+
+            JsonNode selectedTour = jsonFile.get(tourNumber - 1);
+            String location = selectedTour.get("location").asText();
+            String date = selectedTour.get("date").asText();
+            String time = selectedTour.get("time").asText();
+            String description = selectedTour.get("description").asText();
+            String price = selectedTour.get("price").asText();
+
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\nTour Details for " + cityName + " - Tour " + tourNumber + ConsoleColors.RESET);
+            System.out.println("Location: " + location);
+            System.out.println("Date: " + date);
+            System.out.println("Time: " + time);
+            System.out.println("Description: " + description);
+            System.out.println("Price: " + price);
+
+            // Ask the user to choose between going back to the main menu or proceeding to payment
+            Scanner userInputScanner = new Scanner(System.in);
+            int choice = -1;
+
+            while (choice < 1 || choice > 2) {
+                System.out.println("1. Back to Main Menu");
+                System.out.println("2. Go to Payment");
+                System.out.print("Enter your choice [1-2]: ");
+                choice = Integer.parseInt(userInputScanner.nextLine());
+
+                if (choice == 1) {
+                    // Go back to the main menu
+                    turistNavigationOptions();
+                } else if (choice == 2) {
+                    // Proceed to payment logic
+                    System.out.println("Payment logic goes here.");
+                } else {
+                    System.out.println(ConsoleColors.RED + "◆ Invalid choice! Enter 1 or 2." + ConsoleColors.RESET);
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
     // implementation of getToursFromJSONFile() function, now data from JSON files can be read
     public static void getToursFromJSONfile(String file){
