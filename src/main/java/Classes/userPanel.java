@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+
+
 public class userPanel {
     private static final List<String> favoriteTours = new ArrayList<>();
 
@@ -182,25 +184,23 @@ public class userPanel {
     public static void displayToursOfACity(Integer cityNumber) {
         Scanner userInputScanner = new Scanner(System.in);
         String availableCitiesFile = "src/main/java/JSON_files/available_cities.json";
+
         try {
 
             String cityName = "";
             String jsonFilePath = "";
-
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonCityFile = objectMapper.readTree(new File(availableCitiesFile));
+            int totalCities = jsonCityFile.size();
 
             if (cityNumber == 0 ) {
                 searchAndDisplayCities(); // Go back to the list of available cities
-            } else {
-
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode jsonCityFile = objectMapper.readTree(new File(availableCitiesFile));
+            } else if (cityNumber <= totalCities){
                 for (JsonNode city : jsonCityFile) {
                     int cityNr = Integer.parseInt(city.get("cityNr").asText());
                     if (cityNumber == cityNr) {
                         jsonFilePath = city.get("jsonFilePath").asText();
                         cityName = city.get("cityName").asText();
-                    } else {
-                        System.out.println("City with number" + cityNr + " Not found");
                     }
                 }
 
@@ -210,6 +210,7 @@ public class userPanel {
 
                 getToursFromJSONfile(jsonFilePath);
 
+            // TODO: implement a function that displays ([1] Add tour to favorites [2] Book tour) and the what comes inside those options
 
             System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
             int selectedTour = Integer.parseInt(userInputScanner.nextLine());
@@ -244,10 +245,13 @@ public class userPanel {
                         searchAndDisplayCities();
                     }
                 }
-            }}
+            }} else {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid city number, enter a valid number!" + ConsoleColors.RESET);
+                searchAndDisplayCities();
+            }
         } catch (IOException e){
-            e.printStackTrace();
-            System.out.println("yes");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Requested file not found" + ConsoleColors.RESET);
+
         }
     }
 
