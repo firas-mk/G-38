@@ -130,7 +130,7 @@ public class userPanel {
     }
 
     /* Method to get available cities from a JSON file,
-        whenever a cities is being added to the json file it will dynamically be printed.
+        whenever a cities is being added to the json file it will dynamically be printed
     */
     public static void getAvailableCities(String file){
         try{
