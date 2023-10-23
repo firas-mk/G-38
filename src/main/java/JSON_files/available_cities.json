@@ -1,0 +1,17 @@
+[{
+  "cityNr" : 1,
+  "cityName": "Oslo",
+  "jsonFilePath": "src/main/java/JSON_files/oslo_tours.json"
+},{
+  "cityNr" : 2,
+  "cityName": "Bergen",
+  "jsonFilePath": "src/main/java/JSON_files/bergen_tours.json"
+},{
+  "cityNr" : 3,
+  "cityName": "Kristiandsand",
+  "jsonFilePath": "src/main/java/JSON_files/kristiansand_tours.json"
+},{
+  "cityNr" : 4,
+  "cityName": "Halden",
+  "jsonFilePath": "src/main/java/JSON_files/halden_tours.json"
+}]
