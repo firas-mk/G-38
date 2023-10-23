@@ -7,11 +7,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class Functions {
+public class userPanel {
     private static final List<String> favoriteTours = new ArrayList<>();
 
     public static void loginPanel() {
@@ -22,7 +23,7 @@ public class Functions {
                 "[2] Guide / Company\n" +
                 "[3] Admin" + ConsoleColors.RESET);
         Scanner userLoginOption = new Scanner(System.in);
-        Integer  userInput = Integer.valueOf(userLoginOption.nextLine());
+        int  userInput = Integer.parseInt(userLoginOption.nextLine());
 
         switch (userInput) {
             case 1:
@@ -33,8 +34,9 @@ public class Functions {
             case 2:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide / Company]" + ConsoleColors.RESET);
+
+                /*More code goes here, such as Guide Panel etc.*/
                 break;
-            /*More code goes here, such as Guide Panel etc.*/
             case 3:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
@@ -102,7 +104,7 @@ public class Functions {
 
         switch (userInput) {
             case 1:
-                searchAndDisplayTours();
+                searchAndDisplayCities();
                 break;
             case 2:
 
@@ -127,102 +129,125 @@ public class Functions {
         }
     }
 
-    // Method to display tours for a selected city
-// Implementation of displayToursForCity method
-    public static void searchAndDisplayTours() {
-        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + ConsoleColors.YELLOW_UNDERLINED + "Available Cities:" + ConsoleColors.RESET + ConsoleColors.ORANGE_BOLD_BRIGHT
-                + "\n[0] Back to Main Menu"
-                + "\n[1] Oslo"
-                + "\n[2] Bergen"
-                + "\n[3] Kristiansand"
-                + "\n[4] Halden" + ConsoleColors.RESET
-        );
+    /* Method to get available cities from a JSON file,
+        whenever a cities is being added to the json file it will dynamically be printed.
+    */
+    public static void getAvailableCities(String file){
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
 
-        Scanner userInputScanner = new Scanner(System.in);
-        int selectedCity = -1;
+            JsonNode jsonCityFile = objectMapper.readTree(new File(file));
+            if (jsonCityFile.isEmpty()){
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "|| Oops, looks like there is no cities available! ||" + ConsoleColors.RESET);
+                turistNavigationOptions();
+            }else {
+                for (JsonNode city : jsonCityFile){
+                    String cityNr = city.get("cityNr").asText();
+                    String cityName = city.get("cityName").asText();
 
-        while (selectedCity < 0 || selectedCity > 4) {
-            System.out.println(ConsoleColors.YELLOW +"||> Enter the number of the city you want to explore [0-4]: " + ConsoleColors.RESET);
-            selectedCity = Integer.parseInt(userInputScanner.nextLine());
-        }
+                    System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[" + cityNr + "] " + cityName);
+                }
 
-        if (selectedCity == 0) {
-            turistNavigationOptions(); // Go back to the main menu
-        } else {
-            displayToursForCity(selectedCity);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
-    public static void displayToursForCity(int cityNumber) {
+    /* Method to display tours based on the chosen city by the user,
+        uses getAvailableCities() method to display available cities so the user can choose between.
+    */
+    public static void searchAndDisplayCities() {
+        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + ConsoleColors.YELLOW_UNDERLINED + "Available Cities:" + ConsoleColors.RESET );
+        String availableCities = "src/main/java/JSON_files/available_cities.json";
+        getAvailableCities(availableCities);
+
         Scanner userInputScanner = new Scanner(System.in);
 
-        if (cityNumber == 0) {
-            searchAndDisplayTours(); // Go back to the list of available cities
+            System.out.println(ConsoleColors.YELLOW +"||> Enter the number of the city you want to explore, [0 -> Main menu]: " + ConsoleColors.RESET);
+            int userChoice = Integer.parseInt(userInputScanner.nextLine());
+
+
+        if (userChoice == 0) {
+            turistNavigationOptions(); // Go back to the main menu
         } else {
-            String cityName;
-            String jsonFilePath;
+            displayToursOfACity(userChoice);
+        }
+    }
 
-            switch (cityNumber) {
-                case 1: // Oslo
-                    cityName = "Oslo";
-                    jsonFilePath = "src/main/java/JSON_files/oslo_tours.json";
-                    break;
-                case 2: // Bergen
-                    cityName = "Bergen";
-                    jsonFilePath = "src/main/java/JSON_files/bergen_tours.json";
-                    break;
-                case 3: // Kristiansand
-                    cityName = "Kristiansand";
-                    jsonFilePath = "src/main/java/JSON_files/kristiansand_tours.json";
-                    break;
-                case 4: // Halden
-                    cityName = "Halden";
-                    jsonFilePath = "src/main/java/JSON_files/halden_tours.json";
-                    break;
-                default:
-                    System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 0, 1, 2, 3, or 4 " + ConsoleColors.RESET);
-                    searchAndDisplayTours();
-                    return;
-            }
 
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
-            System.out.println("| Available tours in " + cityName + " |");
-            System.out.println("---------------------------------" + ConsoleColors.RESET);
-            getToursFromJSONfile(jsonFilePath);
+    /* Method to display tours based on what city user chosen, it's displays tours dynamically,
+        so whenever a new tour being added to a tour related json file it will be displayed.
+    */
+    public static void displayToursOfACity(Integer cityNumber) {
+        Scanner userInputScanner = new Scanner(System.in);
+        String availableCitiesFile = "src/main/java/JSON_files/available_cities.json";
+        try {
 
-            int selectedTour = -1;
+            String cityName = "";
+            String jsonFilePath = "";
 
-            while (selectedTour < 0 || selectedTour > 3) {
-                System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore [1-3] or [0] Back to Main Menu: " + ConsoleColors.RESET);
-                selectedTour = Integer.parseInt(userInputScanner.nextLine());
-            }
+
+            if (cityNumber == 0 ) {
+                searchAndDisplayCities(); // Go back to the list of available cities
+            } else {
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonCityFile = objectMapper.readTree(new File(availableCitiesFile));
+                for (JsonNode city : jsonCityFile) {
+                    int cityNr = Integer.parseInt(city.get("cityNr").asText());
+                    if (cityNumber == cityNr) {
+                        jsonFilePath = city.get("jsonFilePath").asText();
+                        cityName = city.get("cityName").asText();
+                    } else {
+                        System.out.println("City with number" + cityNr + " Not found");
+                    }
+                }
+
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
+            System.out.println("| Available tours in " + cityName);
+            System.out.println("------------------------------------" + ConsoleColors.RESET);
+
+                getToursFromJSONfile(jsonFilePath);
+
+
+            System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
+            int selectedTour = Integer.parseInt(userInputScanner.nextLine());
 
             if (selectedTour == 0) {
-                searchAndDisplayTours(); // Go back to the list of available cities
+                searchAndDisplayCities(); // Go back to the list of available cities
             } else {
-                System.out.println("You selected tour " + selectedTour);
-                System.out.println("1. Add to Favorites");
-                System.out.println("2. Go to Payment");
-                int choice = -1;
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
+                System.out.println("| You selected tour nr. " + selectedTour + " |");
+                System.out.println("---------------------------------" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT
+                        + "\n[1] Add tour to favorites"
+                        + "\n[2] Book tour"
+                        + ConsoleColors.RESET
+                );
+                int userChoice = -1;
 
-                while (choice < 1 || choice > 2) {
-                    System.out.println("Enter your choice [1-2]: ");
-                    choice = Integer.parseInt(userInputScanner.nextLine());
+                while (userChoice < 1 || userChoice > 2) {
+                    System.out.println(ConsoleColors.YELLOW + "||> Enter your choice [1-2] or [0 -> Go Back]: " + ConsoleColors.RESET);
+                    userChoice = Integer.parseInt(userInputScanner.nextLine());
 
-                    if (choice == 1) {
+                    if (userChoice == 1) {
                         String selectedTourInfo = cityName + " - Tour " + selectedTour;
                         favoriteTours.add(selectedTourInfo);
-                        System.out.println("Tour added to favorites!");
-                        searchAndDisplayTours(); // Automatically go back to the list of available cities
-                    } else if (choice == 2) {
+                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour added to favorites ✔" + ConsoleColors.RESET);
+                        searchAndDisplayCities(); // Automatically go back to the list of available cities
+                    } else if (userChoice == 2) {
                         // Implement payment logic here
                         // You can add your payment code here
                         System.out.println("Payment logic goes here.");
-                    } else {
-                        System.out.println(ConsoleColors.RED + "◆ Invalid choice! Enter 1 or 2." + ConsoleColors.RESET);
+                    } else if (userChoice == 0) {
+                        searchAndDisplayCities();
                     }
                 }
-            }
+            }}
+        } catch (IOException e){
+            e.printStackTrace();
+            System.out.println("yes");
         }
     }
 
@@ -232,27 +257,27 @@ public class Functions {
         System.out.println("----------------------------------" + ConsoleColors.RESET);
 
         if (favoriteTours.isEmpty()) {
-            System.out.println("You have no favorite tours saved.");
+            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ You have no favorite tours saved." + ConsoleColors.RESET);
         } else {
             int tourIndex = 1;
             for (String tour : favoriteTours) {
-                System.out.println("[" + tourIndex + "] " + tour);
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "[" + tourIndex + "] " + ConsoleColors.ORANGE_BOLD_BRIGHT + tour + ConsoleColors.RESET);
                 tourIndex++;
             }
 
             // Ask the user to select a tour to view
             Scanner userInputScanner = new Scanner(System.in);
-            System.out.print("Enter the number of the tour you want to view details (0 to go back): ");
-            int choice = Integer.parseInt(userInputScanner.nextLine());
+            System.out.print("Enter the number of the tour you want to view details [0 -> Main menu]: ");
+            int userChoice = Integer.parseInt(userInputScanner.nextLine());
 
-            if (choice == 0) {
+            if (userChoice == 0) {
                 turistNavigationOptions(); // Go back to the main menu
-            } else if (choice > 0 && choice <= favoriteTours.size()) {
+            } else if (userChoice > 0 && userChoice <= favoriteTours.size()) {
                 // User selected a valid tour
-                String selectedTourInfo = favoriteTours.get(choice - 1);
+                String selectedTourInfo = favoriteTours.get(userChoice - 1);
                 displayTourDetails(selectedTourInfo);
             } else {
-                System.out.println("Invalid choice. Please enter a valid number.");
+                System.out.println(ConsoleColors.RED + "◆ Invalid choice! Enter 1 or 2." + ConsoleColors.RESET);
                 showFavoriteTours();
             }
         }
@@ -341,7 +366,6 @@ public class Functions {
     }
 
 
-
     // implementation of getToursFromJSONFile() function, now data from JSON files can be read
     public static void getToursFromJSONfile(String file){
         try{
@@ -353,9 +377,9 @@ public class Functions {
             // if the json-file is empty (which means if there is no tours available) a message will be printed to the user
             if (jsonFile.isEmpty()){
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "|| Oops, looks like there is no tours available! ||" + ConsoleColors.RESET);
-                searchAndDisplayTours();
+                searchAndDisplayCities();
             }else {
-                Integer tourNr = 0;
+                int tourNr = 0;
                 //Iterate throw and get information
                 for(JsonNode tour : jsonFile){
                     tourNr++;
@@ -379,7 +403,9 @@ public class Functions {
         }
 
 
+
     }
+
 
 
 }
