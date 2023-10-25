@@ -1,5 +1,6 @@
 [
   {
+    "tourNr" : 1,
     "location": "Halden Canal",
     "date": "22.10.2023",
     "time": "12:00",
@@ -7,6 +8,7 @@
     "price": "190 kr"
   }
 ,{
+  "tourNr" : 2,
   "location": "Rød Manor",
   "date": "27.10.2023",
   "time": "15:30",
@@ -15,6 +17,7 @@
 }
 ,
   {
+    "tourNr" : 3,
     "location": "Idd Church",
     "date": "29.10.2023",
     "time": "11:00",

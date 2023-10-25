@@ -1,4 +1,5 @@
 [{
+  "tourNr" : 1,
   "location": "Holmenkollen Ski Jump",
   "date": "30.10.2023",
   "time": "13:30",
@@ -7,6 +8,7 @@
 }
 ,
   {
+    "tourNr" : 2,
     "location": "The Norwegian Opera & Ballet",
     "date": "28.10.2023",
     "time": "19:00",
@@ -15,6 +17,7 @@
   }
 ,
   {
+    "tourNr" : 3,
     "location": "Vigeland Park",
     "date": "23.10.2023",
     "time": "11:00",
