@@ -262,6 +262,7 @@ public class userPanel {
 
         if (favoriteTours.isEmpty()) {
             System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ You have no favorite tours saved." + ConsoleColors.RESET);
+            turistNavigationOptions();
         } else {
             int tourIndex = 1;
             for (String tour : favoriteTours) {
@@ -353,11 +354,13 @@ public class userPanel {
                 System.out.print("Enter your choice [1-2]: ");
                 choice = Integer.parseInt(userInputScanner.nextLine());
 
+                // TODO: change it to switch-case
                 if (choice == 1) {
                     // Go back to the main menu
                     turistNavigationOptions();
                 } else if (choice == 2) {
                     // Proceed to payment logic
+                    //TODO: payment logic function
                     System.out.println("Payment logic goes here.");
                 } else {
                     System.out.println(ConsoleColors.RED + "◆ Invalid choice! Enter 1 or 2." + ConsoleColors.RESET);
@@ -380,13 +383,12 @@ public class userPanel {
             JsonNode jsonFile = objectMapper.readTree(new File(file));
             // if the json-file is empty (which means if there is no tours available) a message will be printed to the user
             if (jsonFile.isEmpty()){
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "|| Oops, looks like there is no tours available! ||" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! " + ConsoleColors.RESET);
                 searchAndDisplayCities();
             }else {
-                int tourNr = 0;
-                //Iterate throw and get information
+                //Iterate throw json file and get information
                 for(JsonNode tour : jsonFile){
-                    tourNr++;
+                    String tourNr = tour.get("tourNr").asText();
                     String location = tour.get("location").asText();
                     String date = tour.get("date").asText();
                     String time = tour.get("time").asText();
@@ -401,6 +403,7 @@ public class userPanel {
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Description: " + description +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Price: " + price
                     );
+
                 }
             }} catch (IOException e) {
             e.printStackTrace();
