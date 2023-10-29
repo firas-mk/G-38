@@ -1,17 +1,16 @@
 package Classes;
 
-import java.io.File;
-import java.io.IOException;
-
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import static Classes.Admin.addTour;
+import static Classes.Admin.deleteTour;
 
 
 public class userPanel {
@@ -41,14 +40,15 @@ public class userPanel {
                 break;
             case 3:
                 loadingProgress();
-                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
+                Admin admin = new Admin(); // Opprett en instans av Admin-klassen
+                admin.adminPanel(); // Kall adminPanel-metoden når brukeren logger inn som Admin
                 break;
             /*More code goes here, such as Admin Panel etc.*/
             default:
                 System.out.println(ConsoleColors.RED + "▢ invalid number! Enter 1, 2 or 3 " + ConsoleColors.RESET);
                 loginPanel();
-            }
         }
+    }
     public static void loadingProgress(){
         int totalTasks = 5;
 
@@ -91,7 +91,7 @@ public class userPanel {
      *      <li> logout
      *      <li> etc.
      * </ul>
-    */ //DESC-Javadoc ---> turistNavigatonOptions()
+     */ //DESC-Javadoc ---> turistNavigatonOptions()
     public static void turistNavigationOptions(){
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
         //System.out.println("| In order to navigate, choose one of the options below:    |");
@@ -166,8 +166,8 @@ public class userPanel {
 
         Scanner userInputScanner = new Scanner(System.in);
 
-            System.out.println(ConsoleColors.YELLOW +"||> Enter the number of the city you want to explore, [0 -> Main menu]: " + ConsoleColors.RESET);
-            int userChoice = Integer.parseInt(userInputScanner.nextLine());
+        System.out.println(ConsoleColors.YELLOW +"||> Enter the number of the city you want to explore, [0 -> Main menu]: " + ConsoleColors.RESET);
+        int userChoice = Integer.parseInt(userInputScanner.nextLine());
 
 
         if (userChoice == 0) {
@@ -204,48 +204,48 @@ public class userPanel {
                     }
                 }
 
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
-            System.out.println("| Available tours in " + cityName);
-            System.out.println("------------------------------------" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
+                System.out.println("| Available tours in " + cityName);
+                System.out.println("------------------------------------" + ConsoleColors.RESET);
 
                 getToursFromJSONfile(jsonFilePath);
 
-            // TODO: implement a function that displays ([1] Add tour to favorites [2] Book tour) and the what comes inside those options
+                // TODO: implement a function that displays ([1] Add tour to favorites [2] Book tour) and the what comes inside those options
 
-            System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
-            int selectedTour = Integer.parseInt(userInputScanner.nextLine());
+                System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
+                int selectedTour = Integer.parseInt(userInputScanner.nextLine());
 
-            if (selectedTour == 0) {
-                searchAndDisplayCities(); // Go back to the list of available cities
-            } else {
-                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
-                System.out.println("| You selected tour nr. " + selectedTour + " |");
-                System.out.println("---------------------------------" + ConsoleColors.RESET);
-                System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT
-                        + "\n[1] Add tour to favorites"
-                        + "\n[2] Book tour"
-                        + ConsoleColors.RESET
-                );
-                int userChoice = -1;
+                if (selectedTour == 0) {
+                    searchAndDisplayCities(); // Go back to the list of available cities
+                } else {
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
+                    System.out.println("| You selected tour nr. " + selectedTour + " |");
+                    System.out.println("---------------------------------" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT
+                            + "\n[1] Add tour to favorites"
+                            + "\n[2] Book tour"
+                            + ConsoleColors.RESET
+                    );
+                    int userChoice = -1;
 
-                while (userChoice < 1 || userChoice > 2) {
-                    System.out.println(ConsoleColors.YELLOW + "||> Enter your choice [1-2] or [0 -> Go Back]: " + ConsoleColors.RESET);
-                    userChoice = Integer.parseInt(userInputScanner.nextLine());
+                    while (userChoice < 1 || userChoice > 2) {
+                        System.out.println(ConsoleColors.YELLOW + "||> Enter your choice [1-2] or [0 -> Go Back]: " + ConsoleColors.RESET);
+                        userChoice = Integer.parseInt(userInputScanner.nextLine());
 
-                    if (userChoice == 1) {
-                        String selectedTourInfo = cityName + " - Tour " + selectedTour;
-                        favoriteTours.add(selectedTourInfo);
-                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour added to favorites ✔" + ConsoleColors.RESET);
-                        searchAndDisplayCities(); // Automatically go back to the list of available cities
-                    } else if (userChoice == 2) {
-                        // Implement payment logic here
-                        // You can add your payment code here
-                        System.out.println("Payment logic goes here.");
-                    } else if (userChoice == 0) {
-                        searchAndDisplayCities();
+                        if (userChoice == 1) {
+                            String selectedTourInfo = cityName + " - Tour " + selectedTour;
+                            favoriteTours.add(selectedTourInfo);
+                            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour added to favorites ✔" + ConsoleColors.RESET);
+                            searchAndDisplayCities(); // Automatically go back to the list of available cities
+                        } else if (userChoice == 2) {
+                            // Implement payment logic here
+                            // You can add your payment code here
+                            System.out.println("Payment logic goes here.");
+                        } else if (userChoice == 0) {
+                            searchAndDisplayCities();
+                        }
                     }
-                }
-            }} else {
+                }} else {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid city number, enter a valid number!" + ConsoleColors.RESET);
                 searchAndDisplayCities();
             }
@@ -369,6 +369,39 @@ public class userPanel {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public static void adminPanel() {
+        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "You are now logged in as an Admin." + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "[1] Add a tour\n" +
+
+                "[2] Delete a tour\n" +
+                "[3] Go back to the main menu" + ConsoleColors.RESET);
+
+        Scanner scanner = new Scanner(System.in);
+        int adminChoice = Integer.parseInt(scanner.nextLine());
+        switch (adminChoice) {
+            case 1:
+
+                System.out.println("number 1 to add new tour ");
+                int tourNumber = Integer.parseInt(scanner.nextLine());
+                addTour(tourNumber);
+                break;
+
+            case 2:
+                System.out.println("Enter the city number for the tour you want to delete: ");
+                int cityNumberToDelete = Integer.parseInt(scanner.nextLine());
+                System.out.println("Enter the tour number you want to delete: ");
+                int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
+                deleteTour(cityNumberToDelete, tourNumberToDelete);
+                break;
+
+            case 3:
+                userPanel.turistNavigationOptions(); // Go back to the main menu
+                break;
+            default:
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
+                adminPanel(); // Call adminPanel again for invalid choice
         }
     }
 
