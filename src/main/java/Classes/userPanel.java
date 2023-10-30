@@ -383,15 +383,24 @@ public class userPanel {
         switch (adminChoice) {
             case 1:
 
-                System.out.println("number 1 to add new tour ");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
+
                 int tourNumber = Integer.parseInt(scanner.nextLine());
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "1 Oslo  - 2 Bergen - 3 Kristiandsand - 4 Halden ");
+
                 addTour(tourNumber);
                 break;
 
+
             case 2:
-                System.out.println("Enter the city number for the tour you want to delete: ");
+
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Enter the city number for the tour you want to delete: ");
+
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "1 Oslo  - 2 Bergen - 3 Kristiandsand - 4 Halden ");
+
                 int cityNumberToDelete = Integer.parseInt(scanner.nextLine());
                 System.out.println("Enter the tour number you want to delete: ");
+
                 int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
                 deleteTour(cityNumberToDelete, tourNumberToDelete);
                 break;

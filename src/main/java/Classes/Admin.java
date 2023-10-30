@@ -55,7 +55,7 @@ public class Admin extends userPanel {
 
                 System.out.println("Tour added successfully!");
             } else {
-                System.out.println("File path not found!");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,7 +66,9 @@ public class Admin extends userPanel {
 
 
     public static void deleteTour(int cityNumber, int tourNumber) {
+
         try {
+
             String filePath = getFilePath(cityNumber);
             if (!filePath.equals("")) {
                 JsonNode tours = objectMapper.readTree(new File(filePath));
@@ -83,7 +85,7 @@ public class Admin extends userPanel {
                     System.out.println("Invalid tour number!");
                 }
             } else {
-                System.out.println("File path not found!");
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
             }
         } catch (IOException e) {
             e.printStackTrace();
