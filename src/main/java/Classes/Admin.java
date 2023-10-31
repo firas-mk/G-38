@@ -18,8 +18,9 @@ public class Admin extends userPanel {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the city number for the tour: ");
             int cityNumber = Integer.parseInt(scanner.nextLine());
-            System.out.println("Enter the tour number: "); // Added this line
-            tourNumber = Integer.parseInt(scanner.nextLine()); // Updated this line
+            System.out.println("Enter the tour number: ");
+
+            tourNumber = Integer.parseInt(scanner.nextLine());
             String filePath = getFilePath(cityNumber);
 
             if (!filePath.equals("")) {

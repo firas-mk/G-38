@@ -194,7 +194,8 @@ public class userPanel {
             int totalCities = jsonCityFile.size();
 
             if (cityNumber == 0 ) {
-                searchAndDisplayCities(); // Go back to the list of available cities
+                // Go back to the list of available cities
+                searchAndDisplayCities();
             } else if (cityNumber <= totalCities){
                 for (JsonNode city : jsonCityFile) {
                     int cityNr = Integer.parseInt(city.get("cityNr").asText());
@@ -216,7 +217,8 @@ public class userPanel {
                 int selectedTour = Integer.parseInt(userInputScanner.nextLine());
 
                 if (selectedTour == 0) {
-                    searchAndDisplayCities(); // Go back to the list of available cities
+                    // Go back to the list of available cities
+                    searchAndDisplayCities();
                 } else {
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
                     System.out.println("| You selected tour nr. " + selectedTour + " |");
@@ -276,7 +278,8 @@ public class userPanel {
             int userChoice = Integer.parseInt(userInputScanner.nextLine());
 
             if (userChoice == 0) {
-                turistNavigationOptions(); // Go back to the main menu
+                // Go back to the main menu
+                turistNavigationOptions();
             } else if (userChoice > 0 && userChoice <= favoriteTours.size()) {
                 // User selected a valid tour
                 String selectedTourInfo = favoriteTours.get(userChoice - 1);
@@ -406,11 +409,12 @@ public class userPanel {
                 break;
 
             case 3:
-                userPanel.turistNavigationOptions(); // Go back to the main menu
+                // Go back to the main menu
+                userPanel.turistNavigationOptions();
                 break;
             default:
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
-                adminPanel(); // Call adminPanel again for invalid choice
+                adminPanel();
         }
     }
 
