@@ -134,7 +134,7 @@ public class userPanel {
     /* Method to get available cities from a JSON file,
         whenever a cities is being added to the json file it will dynamically be printed
     */
-    public static void getAvailableCities(String file){
+    private static void getAvailableCities(String file){
         try{
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -375,48 +375,51 @@ public class userPanel {
         }
     }
     public static void adminPanel() {
-        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "You are now logged in as an Admin." + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "[1] Add a tour\n" +
-
-                "[2] Delete a tour\n" +
-                "[3] Go back to the main menu" + ConsoleColors.RESET);
-
+        boolean isAdminRunning = true;
         Scanner scanner = new Scanner(System.in);
-        int adminChoice = Integer.parseInt(scanner.nextLine());
-        switch (adminChoice) {
-            case 1:
 
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
+        while (isAdminRunning) {
+            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "You are now logged in as an Admin." + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "[1] Add a tour\n" +
+                    "[2] Delete a tour\n" +
+                    "[3] Go back to the main menu" + ConsoleColors.RESET);
 
-                int tourNumber = Integer.parseInt(scanner.nextLine());
-                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "1 Oslo  - 2 Bergen - 3 Kristiandsand - 4 Halden ");
+            int adminChoice = Integer.parseInt(scanner.nextLine());
+            switch (adminChoice) {
+                case 1:
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
+                    int tourNumber = Integer.parseInt(scanner.nextLine());
+                    String file = "src/main/java/JSON_files/available_cities.json";
+                    getAvailableCities(file);
+                    addTour(tourNumber);
+                    break;
 
-                addTour(tourNumber);
-                break;
+                case 2:
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Available Tours: ");
+                    String fileForDelete = "src/main/java/JSON_files/available_cities.json";
+                    getAvailableCities(fileForDelete);
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Enter the city number for the tour you want to delete: ");
+                    int cityNumberToDelete = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter the tour number you want to delete: ");
+                    int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
+                    deleteTour(cityNumberToDelete, tourNumberToDelete);
+                    break;
 
+                case 3:
+                    // Go back to the main menu
+                    userPanel.turistNavigationOptions();
+                    isAdminRunning = false;
+                    break;
 
-            case 2:
-
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Enter the city number for the tour you want to delete: ");
-
-                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "1 Oslo  - 2 Bergen - 3 Kristiandsand - 4 Halden ");
-
-                int cityNumberToDelete = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter the tour number you want to delete: ");
-
-                int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
-                deleteTour(cityNumberToDelete, tourNumberToDelete);
-                break;
-
-            case 3:
-                // Go back to the main menu
-                userPanel.turistNavigationOptions();
-                break;
-            default:
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
-                adminPanel();
+                default:
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
+                    // adminPanel();
+                    break;
+            }
         }
     }
+
+
 
 
     // implementation of getToursFromJSONFile() function, now data from JSON files can be read
