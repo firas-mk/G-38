@@ -24,14 +24,16 @@ public class Admin extends userPanel {
             String filePath = getFilePath(cityNumber);
 
             if (!filePath.equals("")) {
-                JsonNode tours = objectMapper.readTree(new File(filePath));
-                ArrayNode toursArray = (ArrayNode) tours;
+                if (tourExists(filePath, tourNumber)) {
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Tour  number is  already exists!" + ConsoleColors.RESET);
+                    return;
+                }
 
                 // create a new tour node
                 ObjectNode newTour = objectMapper.createObjectNode();
                 newTour.put("tourNr", tourNumber);
 
-                //  Tour node
+                // Tour node
 
                 System.out.println("Enter the location: ");
                 newTour.put("location", scanner.nextLine());
@@ -49,6 +51,7 @@ public class Admin extends userPanel {
                 newTour.put("price", scanner.nextLine());
 
                 // add the new tour node to the tours array
+                ArrayNode toursArray = (ArrayNode) objectMapper.readTree(new File(filePath));
                 toursArray.add(newTour);
 
                 // write the updated tours array back to the JSON file
@@ -63,19 +66,18 @@ public class Admin extends userPanel {
         }
     }
 
-
-
-
     public static void deleteTour(int cityNumber, int tourNumber) {
-
         try {
-
             String filePath = getFilePath(cityNumber);
             if (!filePath.equals("")) {
                 JsonNode tours = objectMapper.readTree(new File(filePath));
                 ArrayNode toursArray = (ArrayNode) tours;
 
-                if (tourNumber > 0 && tourNumber <= toursArray.size()) {
+                if (toursArray == null) {
+                    System.out.println("No available tours in the selected city!");
+                } else if (toursArray.size() == 0) {
+                    System.out.println("No tours found in the selected city!");
+                } else if (tourNumber > 0 && tourNumber <= toursArray.size()) {
                     toursArray.remove(tourNumber - 1);
 
                     // write the updated tours array back to the JSON file
@@ -83,7 +85,8 @@ public class Admin extends userPanel {
 
                     System.out.println("Tour deleted successfully!");
                 } else {
-                    System.out.println("Invalid tour number!");
+                    System.out.println("Invalid Tour number \n" +
+                            "Tour number does not exist!");
                 }
             } else {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
@@ -109,5 +112,18 @@ public class Admin extends userPanel {
         }
         return "";
 
+    }
+    public static boolean tourExists(String filePath, int tourNumber) throws IOException {
+        JsonNode tours = objectMapper.readTree(new File(filePath));
+        ArrayNode toursArray = (ArrayNode) tours;
+
+        for (JsonNode tour : toursArray) {
+            int existingTourNumber = tour.get("tourNr").asInt();
+            if (existingTourNumber == tourNumber) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
