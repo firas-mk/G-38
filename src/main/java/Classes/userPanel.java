@@ -10,46 +10,16 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 public class userPanel {
     private static final List<String> favoriteTours = new ArrayList<>();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static void loginPanel() {
-        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
-        System.out.println("| Login by typing in the number of one of the options below |");
-        System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Turist\n" +
-                "[2] Guide / Company\n" +
-                "[3] Admin" + ConsoleColors.RESET);
-        Scanner userLoginOption = new Scanner(System.in);
-        int  userInput = Integer.parseInt(userLoginOption.nextLine());
 
-        switch (userInput) {
-            case 1:
-                loadingProgress();
-                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Turist]" + ConsoleColors.RESET);
-                turistNavigationOptions();
-                break;
-            case 2:
-                loadingProgress();
-                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide / Company]" + ConsoleColors.RESET);
-
-                /*More code goes here, such as Guide Panel etc.*/
-                break;
-            case 3:
-                loadingProgress();
-                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
-                adminPanel();
-                break;
-            /*More code goes here, such as Admin Panel etc.*/
-            default:
-                System.out.println(ConsoleColors.RED + "▢ invalid number! Enter 1, 2 or 3 " + ConsoleColors.RESET);
-                loginPanel();
-        }
-    }
     public static void loadingProgress(){
         int totalTasks = 5;
 
@@ -78,6 +48,43 @@ public class userPanel {
             }
         }
     }
+
+    public static void loginPanel() {
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
+        System.out.println("| Login by typing in the number of one of the options below |");
+        System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Turist\n" +
+                "[2] Guide / Company\n" +
+                "[3] Admin" + ConsoleColors.RESET);
+        Scanner userLoginOption = new Scanner(System.in);
+        int  userInput = Integer.parseInt(userLoginOption.nextLine());
+
+        switch (userInput) {
+            case 1:
+                loadingProgress();
+                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Turist]" + ConsoleColors.RESET);
+                turistNavigationOptions();
+                break;
+            case 2:
+                loadingProgress();
+                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide / Company]" + ConsoleColors.RESET);
+
+                /*More code goes here, such as Guide Panel etc.*/
+                break;
+            case 3:
+                loadingProgress();
+                System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
+                Admin admin = new Admin();
+                adminPanel();
+                break;
+            /*More code goes here, such as Admin Panel etc.*/
+            default:
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ invalid number! Enter 1, 2 or 3 " + ConsoleColors.RESET);
+                loginPanel();
+        }
+    }
+
+    /*       --- [Turist] related functions ---          */
 
     /**
      *
@@ -137,7 +144,7 @@ public class userPanel {
     */
     public static void getAvailableCities(String file){
         try{
-            ObjectMapper objectMapper = new ObjectMapper();
+
 
             JsonNode jsonCityFile = objectMapper.readTree(new File(file));
             if (jsonCityFile.isEmpty()){
@@ -183,14 +190,12 @@ public class userPanel {
         so whenever a new tour being added to a tour related json file it will be displayed.
     */
     public static void displayToursOfACity(int cityNumber) {
-        Scanner userInputScanner = new Scanner(System.in);
         String availableCitiesFile = "src/main/java/JSON_files/available_cities.json";
 
         try {
 
             String cityName = "";
             String jsonTourFilePath = "";
-            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonCityFile = objectMapper.readTree(new File(availableCitiesFile));
 
             int totalCities = jsonCityFile.size();
@@ -199,7 +204,7 @@ public class userPanel {
                 searchAndDisplayCities(); // Go back to the list of available cities
             } else if (cityNumber <= totalCities){
                 for (JsonNode city : jsonCityFile) {
-                    int cityNr = Integer.parseInt(city.get("cityNr").asText());
+                    int cityNr = city.get("cityNr").asInt();
                     if (cityNumber == cityNr) {
                         jsonTourFilePath = city.get("jsonFilePath").asText();
                         cityName = city.get("cityName").asText();
@@ -225,7 +230,7 @@ public class userPanel {
                 Scanner userInput = new Scanner(System.in);
                 while (userChoice < totalTours || userChoice > totalTours){
                     System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
-                    int selectedTour = Integer.parseInt(userInputScanner.nextLine());
+                    int selectedTour = Integer.parseInt(userInput.nextLine());
                     if (selectedTour == 0) {
                         searchAndDisplayCities(); // Go back to the list of available cities
                     } else if (selectedTour <= totalTours && selectedTour >= 1){
@@ -296,7 +301,7 @@ public class userPanel {
         }
     }
 
-
+    //TODO: remove or reimplement tour - TBD
     public static void displayTourDetails(String tourInfo) {
         String[] tourParts = tourInfo.split(" - Tour ");
 
@@ -330,7 +335,6 @@ public class userPanel {
         }
 
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonFile = objectMapper.readTree(new File(jsonFilePath));
 
             if (tourNumber < 1 || tourNumber > jsonFile.size()) {
@@ -384,8 +388,6 @@ public class userPanel {
     // implementation of getToursFromJSONFile() function, now data from JSON files can be read
     public static void getToursFromJSONFile(String file){
         try{
-            // ObjectMapper to read from the JSON file
-            ObjectMapper objectMapper = new ObjectMapper();
 
             //read JSON-filen
             JsonNode jsonFile = objectMapper.readTree(new File(file));
@@ -427,32 +429,85 @@ public class userPanel {
         System.out.println("|    You selected tour nr. " + selectedTour + "    |");
         System.out.println("---------------------------------" + ConsoleColors.RESET);
         System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT
-                + "[1] Add tour to favorites"
-                + "\n[2] Book tour"
+                + "[1] Add tour to favorites\n"
+                + "[2] Book tour"
                 + ConsoleColors.RESET
         );
 
         int userChoice = -1;
         Scanner userInput = new Scanner(System.in);
-        while (userChoice < 1 || userChoice > 2) {
+        while (userChoice < 0 || userChoice > 2) {
             System.out.println(ConsoleColors.YELLOW + "||> Enter your choice, [0 -> Go Back]: " + ConsoleColors.RESET);
             userChoice = Integer.parseInt(userInput.nextLine());
-            if (userChoice == 1){
-                // TODO: implement a method that takes selected tours info and writes it to favoriteTours.json
-                addTourToFavorite(selectedTour, JSONFilepath);
-                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour added to favorites ✔" + ConsoleColors.RESET);
-                searchAndDisplayCities(); // Automatically go back to the list of available cities
-            } else if(userChoice == 2){
-                System.out.println("Hello");
+            switch (userChoice){
+                case 0:
+                    // TODO: Fix bug: the parameter should point the actual cityNr so the tours of selected city shows again
+                    // as of now when "selectedTour" is set as parameter, and u use for example tourNr 2, then it will choose city nr 2 which is Bergen
+                    // this is wrong, what should user get is what city they chose first, so if it was Oslo, then Oslo tours should be displayed
+                    displayToursOfACity(selectedTour);
+                    break;
+                case 1:
+                    addTourToFavorite(selectedTour, cityName, JSONFilepath);
+                    searchAndDisplayCities(); // Automatically go back to the list of available cities
+                    break;
+                case 2:
+                    System.out.println("Booking logic goes here");
+                    break;
+
             }
+
         }
 
     }
 
-    public static void addTourToFavorite(int tourNr, String JSONFilepath){
+    public static void addTourToFavorite(int tourNr, String cityName, String JSONFilepath) {
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
         /*
-         * get the tourNr and the filepath, iterate throw the filepath find the tour the matches the tourNr and get all values then write those value to favorite_tours.json*/
+         * get the tourNr and the filepath, iterate throw the filepath find the tour the matches the tourNr and get all values then write those value to favorite_tours.json
+         */
+        try {
+            String favoriteJsonFilePath = "src/main/java/JSON_files/favorite_tours.json";
+            JsonNode favoriteToursJsonFile = objectMapper.readTree(new File(favoriteJsonFilePath));
+            ArrayNode favoriteToursArray = (ArrayNode) objectMapper.readTree(new File(favoriteJsonFilePath));
+            JsonNode cityToursJsonFile = objectMapper.readTree(new File(JSONFilepath));
+            ObjectNode favoredTour = objectMapper.createObjectNode();
+
+                for (JsonNode existedTour : favoriteToursJsonFile){
+                    if (tourNr == existedTour.get("tourNr").asInt() && cityName.equals(existedTour.get("city").asText())){
+                        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Tour already exist in your favorite" + ConsoleColors.RESET);
+                        bookOrAddTourToFavorite(tourNr, cityName, JSONFilepath);
+                    }
+                    }
+            for (JsonNode tour : cityToursJsonFile) {
+                int tourNumber = tour.get("tourNr").asInt();
+                if (tourNumber == tourNr){
+                    String location = tour.get("location").asText();
+                    String date = tour.get("date").asText();
+                    String time = tour.get("time").asText();
+                    String description = tour.get("description").asText();
+                    String price = tour.get("price").asText();
+
+                    favoredTour.put("tourNr", tourNumber);
+                    favoredTour.put("city", cityName);
+                    favoredTour.put("location", location);
+                    favoredTour.put("date", date);
+                    favoredTour.put("time", time);
+                    favoredTour.put("description", description);
+                    favoredTour.put("price", price);
+
+                }
+
+            }
+            favoriteToursArray.add(favoredTour);
+            objectMapper.writeValue(new File(favoriteJsonFilePath), favoriteToursArray);
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour added to favorites ✔" + ConsoleColors.RESET);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    /*       --- [Admin] related functions ---          */
     public static void adminPanel() {
         boolean isAdminRunning = true;
         Scanner scanner = new Scanner(System.in);
