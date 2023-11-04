@@ -42,6 +42,7 @@ public class userPanel {
             case 3:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
+                adminPanel();
                 break;
             /*More code goes here, such as Admin Panel etc.*/
             default:
@@ -115,14 +116,14 @@ public class userPanel {
 
             case 3:
                 // (KHALIL) NEW: log out logic has been implemented
-                System.out.println(ConsoleColors.YELLOW + "|| You are successfully logged out, See you later :) ||" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);
                 Scanner userInputScanner = new Scanner(System.in);
                 System.out.println(ConsoleColors.YELLOW +"||> Do you want to login? [y/n]: " + ConsoleColors.RESET);
                 String userChoice = String.valueOf(userInputScanner.nextLine());
                 if(userChoice.equals("y") || userChoice.equals("Y")){
                     loginPanel();
                 }else {
-                    System.out.println(ConsoleColors.YELLOW + "Thank you for using Tourly. See you later ;)" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "Thank you for using Tourly. See you later ;)" + ConsoleColors.RESET);
                 }
                 break;
             default:
@@ -431,11 +432,10 @@ public class userPanel {
                 + ConsoleColors.RESET
         );
 
-
         int userChoice = -1;
         Scanner userInput = new Scanner(System.in);
         while (userChoice < 1 || userChoice > 2) {
-            System.out.println(ConsoleColors.YELLOW + "||> Enter your choice [1-2] or [0 -> Go Back]: " + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.YELLOW + "||> Enter your choice, [0 -> Go Back]: " + ConsoleColors.RESET);
             userChoice = Integer.parseInt(userInput.nextLine());
             if (userChoice == 1){
                 // TODO: implement a method that takes selected tours info and writes it to favoriteTours.json
@@ -458,10 +458,12 @@ public class userPanel {
         Scanner scanner = new Scanner(System.in);
 
         while (isAdminRunning) {
-            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "You are now logged in as an Admin." + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "[1] Add a tour\n" +
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
+            System.out.println("| You are now in the main menu, choose one of the options below |");
+            System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Add a tour\n" +
                     "[2] Delete a tour\n" +
-                    "[3] Go back to the main menu" + ConsoleColors.RESET);
+                    "[3] Log out" + ConsoleColors.RESET);
 
             int adminChoice = Integer.parseInt(scanner.nextLine());
             switch (adminChoice) {
@@ -486,14 +488,22 @@ public class userPanel {
 
                 case 3:
                     // Go back to the main menu
-                    userPanel.turistNavigationOptions();
-                    isAdminRunning = false;
-                    break;
-
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);
+                    Scanner userInputScanner = new Scanner(System.in);
+                    System.out.println(ConsoleColors.YELLOW +"||> Do you want to login? [y/n]: " + ConsoleColors.RESET);
+                    String userChoice = String.valueOf(userInputScanner.nextLine());
+                    if(userChoice.equals("y") || userChoice.equals("Y")){
+                        loginPanel();
+                    }else {
+                        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for improving Tourly. See you later ;)" + ConsoleColors.RESET);
+                        isAdminRunning = false;
+                    }
+                        break;
                 default:
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
-                    // adminPanel();
-                    break;
+                    System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
+                    adminPanel();
+
+
             }
         }
     }
