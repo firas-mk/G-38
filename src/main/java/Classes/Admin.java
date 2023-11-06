@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.jogamp.common.util.ArrayHashMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class Admin extends userPanel {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             String filePath = getFilePath(cityNumber);
+
             if (!filePath.equals("")) {
                 JsonNode tours = objectMapper.readTree(new File(filePath));
                 ArrayNode toursArray = (ArrayNode) tours;
@@ -82,24 +84,39 @@ public class Admin extends userPanel {
                     System.out.println("No available tours in the selected city!");
                 } else if (toursArray.size() == 0) {
                     System.out.println("No tours found in the selected city!");
-                } else if (tourNumber > 0 && tourNumber <= toursArray.size()) {
-                    toursArray.remove(tourNumber - 1);
+                } else { //if (tourNumber > 0 && tourNumber <= toursArray.size()) {
+                    // Subtract 1 to get the correct index in the array
+                    //int indexToDelete = tourNumber - 1;
+                    //toursArray.remove(indexToDelete);
 
-                    // write the updated tours array back to the JSON file
-                    objectMapper.writeValue(new File(filePath), toursArray);
+                    boolean tourFound = false;
+                    for (int i = 0; i < toursArray.size(); i++) {
+                        JsonNode tour = toursArray.get(i);
+                        int existingTourNumber = tour.get("tourNr").asInt();
+                        if (existingTourNumber == tourNumber) {
+                            toursArray.remove(i);
+                            tourFound = true;
+                            break;
+                        }
+                    }
+                    if (tourFound) {
+                        // write the updated tours array back to the JSON file
+                        objectMapper.writeValue(new File(filePath), toursArray);
 
-                    System.out.println("Tour deleted successfully!");
+                        System.out.println("Tour deleted successfully!");
+                    } else {
+                        System.out.println("Invalid Tour number \n" +
+                                "Tour number does not exist!");
+                    }
+                    }
                 } else {
-                    System.out.println("Invalid Tour number \n" +
-                            "Tour number does not exist!");
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
                 }
-            } else {
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
+            } catch(IOException e){
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
+
 
     public static String getFilePath(int tourNumber) {
         try {
