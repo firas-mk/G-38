@@ -2,12 +2,7 @@ package Classes;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -373,6 +368,10 @@ public class userPanel {
         }
     }
 
+    // TODO: Book and payment logic
+    // TODO: Add book option in favoriteList section so user can book a favored tour
+    // TODO: Add "remove from favorite" option in favorite section so user can remove tours from favorite
+
     public static void getFavoriteTours() {
         try{
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n----------------------------------");
@@ -464,7 +463,7 @@ public class userPanel {
                 default:
                     System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
                     adminPanel();
-
+                    break;
 
             }
         }
