@@ -2,6 +2,7 @@ package Classes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -14,6 +15,8 @@ public class Admin extends userPanel {
 
 
     public static void addTour(int tourNumber) {
+        // for structures json file
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the city number for the tour: ");
@@ -67,6 +70,8 @@ public class Admin extends userPanel {
     }
 
     public static void deleteTour(int cityNumber, int tourNumber) {
+        // for structures json file
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             String filePath = getFilePath(cityNumber);
             if (!filePath.equals("")) {
