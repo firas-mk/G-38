@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.jogamp.common.util.ArrayHashMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,16 +83,25 @@ public class Admin extends userPanel {
                     System.out.println("No available tours in the selected city!");
                 } else if (toursArray.size() == 0) {
                     System.out.println("No tours found in the selected city!");
-                } else if (tourNumber > 0 && tourNumber <= toursArray.size()) {
-                    toursArray.remove(tourNumber - 1);
-
-                    // write the updated tours array back to the JSON file
-                    objectMapper.writeValue(new File(filePath), toursArray);
-
-                    System.out.println("Tour deleted successfully!");
                 } else {
-                    System.out.println("Invalid Tour number \n" +
-                            "Tour number does not exist!");
+                    boolean tourFound = false;
+                    for (int i = 0; i < toursArray.size(); i++) {
+                        JsonNode tour = toursArray.get(i);
+                        int existingTourNumber = tour.get("tourNr").asInt();
+                        if (existingTourNumber == tourNumber) {
+                            toursArray.remove(i);
+                            tourFound = true;
+                            break;
+                        }
+                    }
+                    if (tourFound) {
+                        // write the updated tours array back to the JSON file
+                        objectMapper.writeValue(new File(filePath), toursArray);
+                        System.out.println("Tour deleted successfully!");
+                    } else {
+                        System.out.println("Invalid Tour number \n" +
+                                "Tour number does not exist!");
+                    }
                 }
             } else {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
@@ -100,6 +110,7 @@ public class Admin extends userPanel {
             e.printStackTrace();
         }
     }
+
 
     public static String getFilePath(int tourNumber) {
         try {
