@@ -70,6 +70,8 @@ public class Admin extends userPanel {
     }
 
     public static void deleteTour(int cityNumber, int tourNumber) {
+        // for structures json file
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             String filePath = getFilePath(cityNumber);
             if (!filePath.equals("")) {
