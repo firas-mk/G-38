@@ -125,8 +125,10 @@ public class userPanel {
                     String userChoice = String.valueOf(userInputScanner.nextLine());
                     if(userChoice.equals("y") || userChoice.equals("Y")){
                         loginPanel();
+                        break;
                     }else if(userChoice.equals("n") || userChoice.equals("N")) {
                         System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for using Tourly. See you later ;)" + ConsoleColors.RESET);
+                        break;
                     } else {
                         System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Timed out due to invalid input, you are successfully logged out" + ConsoleColors.RESET);
                     }
@@ -226,32 +228,14 @@ public class userPanel {
 
                 int userChoice = -1;
                 Scanner userInput = new Scanner(System.in);
-                while (userChoice < totalTours || userChoice > totalTours){
+                while (userChoice < 0 || userChoice > totalTours){
                     System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
-                    int selectedTour = Integer.parseInt(userInput.nextLine());
-                    if (selectedTour == 0) {
-                        searchAndDisplayCities(); // Go back to the list of available cities
-                    } else if (selectedTour <= totalTours && selectedTour >= 1){
-                        bookOrAddTourToFavorite(selectedTour, cityNumber, cityName, jsonTourFilePath);
+                    userChoice = Integer.parseInt(userInput.nextLine());
+                    if (userChoice == 0) {
+                        searchAndDisplayCities();// Go back to the list of available cities
+                    } else if (userChoice <= totalTours && userChoice >= 1){
+                        bookOrAddTourToFavorite(userChoice, cityNumber, cityName, jsonTourFilePath);
 
-                /*while (userChoice < 1 || userChoice > 2) {
-                    System.out.println(ConsoleColors.YELLOW + "||> Enter your choice [1-2] or [0 -> Go Back]: " + ConsoleColors.RESET);
-                    userChoice = Integer.parseInt(userInputScanner.nextLine());
-
-
-                    if (userChoice == 1) {
-                        String selectedTourInfo = cityName + " - Tour " + selectedTour;
-                        favoriteTours.add(selectedTourInfo);
-                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour added to favorites ✔" + ConsoleColors.RESET);
-                        searchAndDisplayCities(); // Automatically go back to the list of available cities
-                    } else if (userChoice == 2) {
-                        // Implement payment logic here
-                        // You can add your payment code here
-                        System.out.println("Payment & booking logic goes here.");
-                    } else if (userChoice == 0) {
-                        searchAndDisplayCities();
-                    }
-                }*/
                     }
                 }
 
@@ -321,7 +305,6 @@ public class userPanel {
             userChoice = Integer.parseInt(userInput.nextLine());
             switch (userChoice){
                 case 0:
-
                     displayToursOfACity(cityNr);
                     break;
                 case 1:
@@ -335,6 +318,7 @@ public class userPanel {
             }
 
         }
+        
 
     }
 
@@ -472,7 +456,7 @@ public class userPanel {
                     String userChoice = String.valueOf(userInputScanner.nextLine());
                     if(userChoice.equals("y") || userChoice.equals("Y")){
                         loginPanel();
-                    }else {
+                    }else if (userChoice.equals("n") || userChoice.equals("N")){
                         System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for improving Tourly. See you later ;)" + ConsoleColors.RESET);
                         isAdminRunning = false;
                     }
