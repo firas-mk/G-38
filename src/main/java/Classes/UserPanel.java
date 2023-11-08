@@ -559,7 +559,7 @@ public class UserPanel {
                     int tourNumber = Integer.parseInt(scanner.nextLine());
                     String file = "src/main/java/JSON_files/available_cities.json";
                     getAvailableCities(file);
-                    Admin.addTour(tourNumber);
+                    Admin.addTour();
                     break;
 
                 case 2:

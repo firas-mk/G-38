@@ -4,7 +4,7 @@ public class Main {
 
         System.out.println("\n" + ConsoleColors.ORANGE_BOLD_BRIGHT + "-------" +
                 "| Tourly | Connecting you to adventure | -------" );
-        userPanel.loginPanel();
+        UserPanel.loginPanel();
 
 
 
