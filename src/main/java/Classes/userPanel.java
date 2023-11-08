@@ -568,11 +568,11 @@ public class userPanel {
             int adminChoice = Integer.parseInt(scanner.nextLine());
             switch (adminChoice) {
                 case 1:
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
-                    int tourNumber = Integer.parseInt(scanner.nextLine());
+                    //System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
+                    //int tourNumber = Integer.parseInt(scanner.nextLine());
                     String file = "src/main/java/JSON_files/available_cities.json";
                     getAvailableCities(file);
-                    Admin.addTour(tourNumber);
+                    Admin.addTour();
                     break;
 
                 case 2:
