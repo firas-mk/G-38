@@ -1,27 +1,29 @@
-[{
+[ {
   "tourNr" : 1,
-  "location": "Holmenkollen Ski Jump",
-  "date": "30.10.2023",
-  "time": "13:30",
-  "description": "Ski jump history tour with panoramic views",
-  "price": "160 kr"
-}
-,
-  {
-    "tourNr" : 2,
-    "location": "The Norwegian Opera & Ballet",
-    "date": "28.10.2023",
-    "time": "19:00",
-    "description": "Behind-the-scenes tour of the Opera House",
-    "price": "220 kr"
-  }
-,
-  {
-    "tourNr" : 3,
-    "location": "Vigeland Park ",
-    "date": "23.10.2023",
-    "time": "11:00",
-    "description": "Guided sculpture tour in Vigeland Park",
-    "price": "180 kr"
-  }
-]
+  "location" : "Holmenkollen Ski Jump",
+  "date" : "30.10.2023",
+  "time" : "13:30",
+  "description" : "Ski jump history tour with panoramic views",
+  "price" : "160 kr"
+}, {
+  "tourNr" : 2,
+  "location" : "The Norwegian Opera & Ballet",
+  "date" : "28.10.2023",
+  "time" : "19:00",
+  "description" : "Behind-the-scenes tour of the Opera House",
+  "price" : "220 kr"
+}, {
+  "tourNr" : 3,
+  "location" : "Vigeland Park ",
+  "date" : "23.10.2023",
+  "time" : "11:00",
+  "description" : "Guided sculpture tour in Vigeland Park",
+  "price" : "180 kr"
+}, {
+  "tourNr" : 5,
+  "location" : "xw",
+  "date" : "wx",
+  "time" : "xwx",
+  "description" : "wxwx",
+  "price" : "21"
+} ]

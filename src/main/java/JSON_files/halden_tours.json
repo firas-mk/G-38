@@ -1,28 +1,36 @@
-[
-  {
-    "tourNr" : 1,
-    "location": "Halden Canal ",
-    "date": "22.10.2023",
-    "time": "12:00",
-    "description": "Boat tour along the picturesque Halden Canal",
-    "price": "190 kr"
-  }
-,{
+[ {
+  "tourNr" : 1,
+  "location" : "Halden Canal ",
+  "date" : "22.10.2023",
+  "time" : "12:00",
+  "description" : "Boat tour along the picturesque Halden Canal",
+  "price" : "190 kr"
+}, {
   "tourNr" : 2,
-  "location": "Rød Manor",
-  "date": "27.10.2023",
-  "time": "15:30",
-  "description": "Historical tour of the Rød Manor estate",
-  "price": "175 kr"
-}
-,
-  {
-    "tourNr" : 3,
-    "location": "Idd Church",
-    "date": "29.10.2023",
-    "time": "11:00",
-    "description": "Guided tour of the charming Idd Church",
-    "price": "160 kr"
-  }
-
-]
+  "location" : "Rød Manor",
+  "date" : "27.10.2023",
+  "time" : "15:30",
+  "description" : "Historical tour of the Rød Manor estate",
+  "price" : "175 kr"
+}, {
+  "tourNr" : 3,
+  "location" : "Idd Church",
+  "date" : "29.10.2023",
+  "time" : "11:00",
+  "description" : "Guided tour of the charming Idd Church",
+  "price" : "160 kr"
+}, {
+  "tourNr" : 21,
+  "location" : "ewd",
+  "date" : "fef",
+  "time" : "fe",
+  "description" : "eww",
+  "price" : "33"
+}, {
+  "tourNr" : 5,
+  "location" : "Frdriksten",
+  "date" : "12.03.2022",
+  "time" : "14:00",
+  "description" : "Skoletur",
+  "price" : "140 kr"
+} ]
