@@ -13,21 +13,22 @@ import java.io.FileReader;
 
 
 public class Tour {
-    private String tourId;
+    private String tourNr;
     private String location;
     private Date dateTime;
     private double price;
-    /* private int availableSeats;*/
+    private String status;
     private List<Booking> bookings;
 
-    public Tour(String tourId, String location, Date dateTime, double price, int status) {
-        this.tourId = tourId;
+    public Tour(String tourNr, String location, Date dateTime, double price, String status) {
+        this.tourNr = tourNr;
         this.location = location;
         this.dateTime = dateTime;
         this.price = price;
-        /*this.availableSeats = availableSeats;*/
+        this.status = status;
         this.bookings = new ArrayList<>();
     }
+
 
     public String getLocation() {
         return location;
@@ -41,9 +42,6 @@ public class Tour {
         return price;
     }
 
-   /* public int getAvailableSeats() {
-        return availableSeats;
-    }*/
 
     public List<Booking> getBookings() {
         return bookings;
