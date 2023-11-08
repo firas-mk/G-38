@@ -315,6 +315,7 @@ public class userPanel {
                     objectMapper.writeValue(new File(bookingsJsonFilepath), bookingsArray);
                     // TODO: simple payment logic
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour booked successfully ✔" + ConsoleColors.RESET);
+                    searchAndDisplayCities();
                     break;
                 case "Favorite":
                     fileToBeUsed = favoriteToursFile;
@@ -333,7 +334,7 @@ public class userPanel {
                     objectMapper.writeValue(new File(bookingsJsonFilepath), bookingsArray);
                     // TODO: simple payment logic
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour booked successfully ✔" + ConsoleColors.RESET);
-
+                    touristPanel();
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + bookingContext);
