@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
-public class userPanel {
+public class UserPanel {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -62,8 +62,9 @@ public class userPanel {
             case 2:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide / Company]" + ConsoleColors.RESET);
-
-                /*More code goes here, such as Guide Panel etc.*/
+                Guide guide = new Guide("GuideId", "Guide Name", "Contact Info");
+                GuidePanel guidePanel = new GuidePanel(guide);
+                guidePanel.guideMenu();
                 break;
             case 3:
                 loadingProgress();
@@ -113,21 +114,7 @@ public class userPanel {
                     break;
 
                 case 3:
-                    // (KHALIL) NEW: log out logic has been implemented
-                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);
-                    Scanner userInputScanner = new Scanner(System.in);
-                    System.out.println(ConsoleColors.YELLOW +"||> Do you want to login? [y/n]: " + ConsoleColors.RESET);
-                    String userChoice = String.valueOf(userInputScanner.nextLine());
-                    if(userChoice.equals("y") || userChoice.equals("Y")){
-                        loginPanel();
-                        break;
-                    }else if(userChoice.equals("n") || userChoice.equals("N")) {
-                        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for using Tourly. See you later ;)" + ConsoleColors.RESET);
-                        break;
-                    } else {
-                        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Timed out due to invalid input, you are successfully logged out" + ConsoleColors.RESET);
-                    }
-                    break;
+                    logOut();
 
                 default:
                     System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
@@ -448,18 +435,7 @@ public class userPanel {
                     break;
 
                 case 3:
-                    // Go back to the main menu
-                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);
-                    Scanner userInputScanner = new Scanner(System.in);
-                    System.out.println(ConsoleColors.YELLOW +"||> Do you want to login? [y/n]: " + ConsoleColors.RESET);
-                    String userChoice = String.valueOf(userInputScanner.nextLine());
-                    if(userChoice.equals("y") || userChoice.equals("Y")){
-                        loginPanel();
-                    }else if (userChoice.equals("n") || userChoice.equals("N")){
-                        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for improving Tourly. See you later ;)" + ConsoleColors.RESET);
-                        isAdminRunning = false;
-                    }
-                        break;
+                    logOut();
                 default:
                     System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
                     adminPanel();
@@ -468,6 +444,60 @@ public class userPanel {
             }
         }
     }
+//GuidePanel
+    public static class GuidePanel {
+        private Guide guide;
 
+        public GuidePanel(Guide guide) {
+            this.guide = guide;
+        }
+
+        public void guideMenu() {
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
+            System.out.println("| Guide Menu: Choose one of the options below                |");
+            System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show All Available Tours\n" +
+                    "[2] Book a Tour\n" +
+                    "[3] Log Out" + ConsoleColors.RESET);
+
+            Scanner scanner = new Scanner(System.in);
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    searchAndDisplayCities();
+                    break;
+                case 2:
+                    getAvailableCities("src/main/java/JSON_files/available_cities.json");
+                    Guide.bookTour("GuideId");
+                    break;
+                case 3:
+                    logOut();
+                    break;
+                default:
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
+                    guideMenu();
+                    break;
+            }
+        }
+
+
+
+
+}
+    public static void logOut() {
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);
+        Scanner userInputScanner = new Scanner(System.in);
+        System.out.println(ConsoleColors.YELLOW +"||> Do you want to login? [y/n]: " + ConsoleColors.RESET);
+        String userChoice = String.valueOf(userInputScanner.nextLine());
+        if(userChoice.equals("y") || userChoice.equals("Y")){
+            loginPanel();
+
+        }else if(userChoice.equals("n") || userChoice.equals("N")) {
+            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for using Tourly. See you later ;)" + ConsoleColors.RESET);
+        } else {
+            System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Timed out due to invalid input, you are successfully logged out" + ConsoleColors.RESET);
+        }
+    }
 }
 
