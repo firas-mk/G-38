@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.junit.Assert;
+import org.junit.Assert.*;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,27 +17,32 @@ public class Admin extends userPanel {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public static void addTour(int tourNumber) {
+    public static void addTour() {
         // for structures json file
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the city number for the tour: ");
             int cityNumber = Integer.parseInt(scanner.nextLine());
-            System.out.println("Enter the tour number: ");
+            /*System.out.println("Enter the tour number: ");
 
-            tourNumber = Integer.parseInt(scanner.nextLine());
+            tourNumber = Integer.parseInt(scanner.nextLine());*/
             String filePath = getFilePath(cityNumber);
 
+            // gi turen et nummer i turliste dinamisk
+            int tourNumber = 0;
+            JsonNode cityToursFile = objectMapper.readTree(new File(filePath));
+            tourNumber = cityToursFile.size();
+
             if (!filePath.equals("")) {
-                if (tourExists(filePath, tourNumber)) {
+                /*if (tourExists(filePath, tourNumber)) {
                     System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Tour  number is  already exists!" + ConsoleColors.RESET);
                     return;
-                }
+                }*/
 
                 // create a new tour node
                 ObjectNode newTour = objectMapper.createObjectNode();
-                newTour.put("tourNr", tourNumber);
+                newTour.put("tourNr", tourNumber + 1);
 
                 // Tour node
 
@@ -60,14 +68,27 @@ public class Admin extends userPanel {
                 // write the updated tours array back to the JSON file
                 objectMapper.writeValue(new File(filePath), toursArray);
 
+
+
+
+
+
                 System.out.println("Tour added successfully!");
-            } else {
+            } /*else {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
-            }
+            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
     }
+    
+
+
+
+
 
     public static void deleteTour(int cityNumber, int tourNumber) {
         // for structures json file
