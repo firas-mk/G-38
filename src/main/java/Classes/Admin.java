@@ -5,15 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.junit.Assert;
-import org.junit.Assert.*;
-import org.junit.Test;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Admin extends userPanel {
+public class Admin extends UserPanel {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
