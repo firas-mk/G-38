@@ -433,6 +433,7 @@ public class UserPanel {
         bookedTour.put("description", description);
         bookedTour.put("price", price);
         bookedTour.put("touristID", "tourist ID");
+
     }
 
     // displays two options to tourist "Add tour to favorite" and "Book tour", and handle tourist's choice
