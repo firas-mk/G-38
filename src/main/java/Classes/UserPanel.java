@@ -237,28 +237,42 @@ public class UserPanel {
 
             //read JSON-filen
             JsonNode jsonFile = objectMapper.readTree(new File(file));
+            int totalTours = jsonFile.size();
             // if the json-file is empty (which means if there is no tours available) a message will be printed to the user
             if (jsonFile.isEmpty()){
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! " + ConsoleColors.RESET);
                 searchAndDisplayCities();
             }else {
+                int totalAvailableTours = 0;
+
                 //Iterate throw json file and get information
                 for(JsonNode tour : jsonFile){
+                    String status = tour.get("status").asText();
                     String tourNr = tour.get("tourNr").asText();
                     String location = tour.get("location").asText();
                     String date = tour.get("date").asText();
                     String time = tour.get("time").asText();
                     String description = tour.get("description").asText();
                     String price = tour.get("price").asText();
+                    if (status.equals("available")){
 
-                    System.out.println(
-                            "\n"+ ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourNr + ConsoleColors.RESET +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Location: " + location +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Date: " + date +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Time: " + time +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Description: " + description +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Price: " + price
-                    );
+                        System.out.println(
+                                "\n"+ ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourNr + ConsoleColors.RESET +
+                                        "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Location: " + location +
+                                        "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Date: " + date +
+                                        "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Time: " + time +
+                                        "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Description: " + description +
+                                        "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Price: " + price
+                        );
+                        for (int i = 0; i <= totalTours; i++) {
+                            if (status.equals("available")){
+                            totalAvailableTours += 1;
+                        }}
+                    } else if (totalAvailableTours == 0) {
+                        System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! " + ConsoleColors.RESET);
+                        searchAndDisplayCities();
+                    }
+
 
                 }
             }} catch (IOException e) {
@@ -268,6 +282,73 @@ public class UserPanel {
 
 
     }
+
+    // reads data from favorite_tours.json and displays it to tourist
+    public static void getFavoriteTours() {
+        try{
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n----------------------------------");
+            System.out.println("|       Your Favorite Tours      |");
+            System.out.println("----------------------------------" + ConsoleColors.RESET);
+
+            String favoriteToursJsonFile = "src/main/java/JSON_files/favorite_tours.json";
+            JsonNode favoriteToursFile = objectMapper.readTree(new File(favoriteToursJsonFile));
+            int tourNr;
+            String city = "";
+            String location;
+            if (favoriteToursFile.isEmpty()) {
+                System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ You have no favorite tours saved." + ConsoleColors.RESET);
+                touristPanel();
+            }else {
+
+                for (JsonNode tour : favoriteToursFile) {
+                    tourNr = tour.get("tourNr").asInt();
+                    city = tour.get("city").asText();
+                    int cityNr = tour.get("cityNr").asInt();
+                    location = tour.get("location").asText();
+                    String date = tour.get("date").asText();
+                    String time = tour.get("time").asText();
+                    String description = tour.get("description").asText();
+                    String price = tour.get("price").asText();
+                    System.out.println(
+                            "\n" + ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT + tourNr + ConsoleColors.RESET +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "City: " + city +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + location +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date & Time: " + date + " - " + time +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Price: " + price
+                    );
+                }
+
+
+            }
+
+
+            int totalFavTours = favoriteToursFile.size();
+
+
+            int userChoice = -1;
+            Scanner userInput = new Scanner(System.in);
+            while (userChoice < 0 || userChoice > totalFavTours){
+                System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour, [0 -> Go Back]: " + ConsoleColors.RESET);
+                userChoice = Integer.parseInt(userInput.nextLine());
+                if (userChoice == 0) {
+                    touristPanel();// Go back to the list of available cities
+                } else if (userChoice <= totalFavTours && userChoice >= 1){
+                    bookOrRemoveTourFromFavorite(userChoice, city, favoriteToursJsonFile);
+
+
+                }
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    // booking logic, books a tour either from search section or directly from favored tours, then add the booked tour to a bookings.json
     public static void bookTour(int tourNr, String cityName, String JSONFilepath, String bookingContext){
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
 
@@ -333,6 +414,8 @@ public class UserPanel {
         }
     }
 
+    /* assigns json values into variables, the logic is duplicated inside bookTour() function,
+    therefore it moved into an own function */
     public static void assignJsonValues(JsonNode bookingFile, ObjectNode bookedTour, JsonNode tour, String city) {
         int tourNumber;
         String location = tour.get("location").asText();
@@ -352,7 +435,7 @@ public class UserPanel {
         bookedTour.put("touristID", "tourist ID");
     }
 
-
+    // displays two options to tourist "Add tour to favorite" and "Book tour", and handle tourist's choice
     public static void bookOrAddTourToFavorite(int selectedTour, int cityNr, String cityName, String JSONFilepath){
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
         System.out.println("|    You selected tour nr. " + selectedTour + "    |");
@@ -386,6 +469,9 @@ public class UserPanel {
         
 
     }
+
+    /* displays two options to tourist when chosing a favored tour
+    "Remove tour from favorite" and "Book tour", and handle tourist's choice*/
     public static void bookOrRemoveTourFromFavorite(int selectedTour, String cityName, String JSONFilepath){
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n---------------------------------");
         System.out.println("|    You selected tour nr. " + selectedTour + "    |");
@@ -417,6 +503,8 @@ public class UserPanel {
         }
 
     }
+
+    /* Gets values of the tour chosen by tourist and adds it to favorite_tours.json */
     public static void addTourToFavorite(int tourNr, int cityNr, String cityName, String JSONFilepath){
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
         /*
@@ -472,69 +560,7 @@ public class UserPanel {
 
 
     }
-    public static void getFavoriteTours() {
-        try{
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n----------------------------------");
-            System.out.println("|       Your Favorite Tours      |");
-            System.out.println("----------------------------------" + ConsoleColors.RESET);
 
-            String favoriteToursJsonFile = "src/main/java/JSON_files/favorite_tours.json";
-            JsonNode favoriteToursFile = objectMapper.readTree(new File(favoriteToursJsonFile));
-            int tourNr;
-            String city = "";
-            String location;
-            if (favoriteToursFile.isEmpty()) {
-                System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ You have no favorite tours saved." + ConsoleColors.RESET);
-                touristPanel();
-            }else {
-
-                for (JsonNode tour : favoriteToursFile) {
-                    tourNr = tour.get("tourNr").asInt();
-                    city = tour.get("city").asText();
-                    int cityNr = tour.get("cityNr").asInt();
-                    location = tour.get("location").asText();
-                    String date = tour.get("date").asText();
-                    String time = tour.get("time").asText();
-                    String description = tour.get("description").asText();
-                    String price = tour.get("price").asText();
-                    System.out.println(
-                            "\n" + ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT + tourNr + ConsoleColors.RESET +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "City: " + city +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + location +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date & Time: " + date + " - " + time +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Price: " + price
-                    );
-                }
-
-
-            }
-
-
-            int totalFavTours = favoriteToursFile.size();
-
-
-            int userChoice = -1;
-            Scanner userInput = new Scanner(System.in);
-            while (userChoice < 0 || userChoice > totalFavTours){
-                System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour, [0 -> Go Back]: " + ConsoleColors.RESET);
-                userChoice = Integer.parseInt(userInput.nextLine());
-                if (userChoice == 0) {
-                    touristPanel();// Go back to the list of available cities
-                } else if (userChoice <= totalFavTours && userChoice >= 1){
-                    bookOrRemoveTourFromFavorite(userChoice, city, favoriteToursJsonFile);
-
-
-                }
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
-
-    }
 
 
 
@@ -626,14 +652,14 @@ public class UserPanel {
 
     // A to do list
 
-    // TODO: Book (done) and payment logic
+    // TODO: Book (done) and payment logic (to be implemented)
     //      user can choose between:
     //          - VisaCard - regular bill
     //          - Klarna - regular bill
     //          - Vipps - fast pay
     // TODO: Add book option in favoriteList section so user can book a favored tour (Done)
-    // TODO: Add "remove from favorite" option in favorite section so user can remove tours from favorite
-    //      implement removeTourFromFavorite() function
+    // TODO: Add "remove from favorite" option in favorite section so user can remove tours from favorite (done)
+    //      implement removeTourFromFavorite() function (to be implemented)
 }
     public static void logOut() {
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);

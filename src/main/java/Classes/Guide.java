@@ -114,7 +114,8 @@ public class Guide {
                             System.out.println("");
                             // booking
                             System.out.println("Tour booked successfully! ");
-                            tourObject.put("Guide", guideId);
+                            tourObject.put("status", "available");
+                            tourObject.put("guideID", guideId);
 
                             // Write the updated tours array back to the JSON file
                             objectMapper.writeValue(new File(filePath), toursArray);
