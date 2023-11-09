@@ -1,8 +1,5 @@
 package Classes;
 
-
-
-;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -25,12 +22,13 @@ public class Admin extends UserPanel {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the city number for the tour: ");
             int cityNumber = Integer.parseInt(scanner.nextLine());
-            /*System.out.println("Enter the tour number: ");
+
+            /* System.out.println("Enter the tour number: ");
 
             tourNumber = Integer.parseInt(scanner.nextLine());*/
             String filePath = getFilePath(cityNumber);
 
-            // gi turen et nummer i turliste dinamisk
+            // give the tour a number in the tour list dynamically
             int tourNumber = 0;
             JsonNode cityToursFile = objectMapper.readTree(new File(filePath));
             tourNumber = cityToursFile.size();
