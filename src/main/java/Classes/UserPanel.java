@@ -568,10 +568,10 @@ public class UserPanel {
 
     /*       --- [Admin] related functions ---          */
     public static void adminPanel() {
-        boolean isAdminRunning = true;
+
         Scanner scanner = new Scanner(System.in);
 
-        while (isAdminRunning) {
+        {
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
             System.out.println("| You are now in the main menu, choose one of the options below |");
             System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
@@ -582,22 +582,11 @@ public class UserPanel {
             int adminChoice = Integer.parseInt(scanner.nextLine());
             switch (adminChoice) {
                 case 1:
-                    //System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
-                    //int tourNumber = Integer.parseInt(scanner.nextLine());
-                    String file = "src/main/java/JSON_files/available_cities.json";
-                    getAvailableCities(file);
-                    Admin.addTour();
+
                     break;
 
                 case 2:
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Available Tours: ");
-                    String fileForDelete = "src/main/java/JSON_files/available_cities.json";
-                    getAvailableCities(fileForDelete);
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Enter the city number for the tour you want to delete: ");
-                    int cityNumberToDelete = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter the tour number you want to delete: ");
-                    int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
-                    Admin.deleteTour(cityNumberToDelete, tourNumberToDelete);
+
                     break;
 
                 case 3:
