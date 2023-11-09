@@ -566,7 +566,7 @@ public class UserPanel {
 
 
 
-    /*       --- [Admin] related functions ---          */
+    /*       --- [Admin] related functions ---           */
     public static void adminPanel() {
 
         Scanner scanner = new Scanner(System.in);
