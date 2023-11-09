@@ -1,5 +1,6 @@
 package Classes;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -60,6 +61,46 @@ public class Admin extends userPanel {
                 objectMapper.writeValue(new File(filePath), toursArray);
 
                 System.out.println("Tour added successfully!");
+            } else {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void deleteTour(int cityNumber, int tourNumber) {
+        // for structures json file
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        try {
+            String filePath = getFilePath(cityNumber);
+            if (!filePath.equals("")) {
+                JsonNode tours = objectMapper.readTree(new File(filePath));
+                ArrayNode toursArray = (ArrayNode) tours;
+
+                if (toursArray == null) {
+                    System.out.println("No available tours in the selected city!");
+                } else if (toursArray.size() == 0) {
+                    System.out.println("No tours found in the selected city!");
+                } else {
+                    boolean tourFound = false;
+                    for (int i = 0; i < toursArray.size(); i++) {
+                        JsonNode tour = toursArray.get(i);
+                        int existingTourNumber = tour.get("tourNr").asInt();
+                        if (existingTourNumber == tourNumber) {
+                            toursArray.remove(i);
+                            tourFound = true;
+                            break;
+                        }
+                    }
+                    if (tourFound) {
+                        // write the updated tours array back to the JSON file
+                        objectMapper.writeValue(new File(filePath), toursArray);
+                        System.out.println("Tour deleted successfully!");
+                    } else {
+                        System.out.println("Invalid Tour number \n" +
+                                "Tour number does not exist!");
+                    }
+                }
             } else {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
             }
