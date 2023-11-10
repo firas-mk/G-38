@@ -6,7 +6,8 @@
     "time": "10:30",
     "description": "Culinary tour at the famous fish market",
     "price": "190 kr",
-    "status" : "available"
+    "status" : "available",
+    "guideID" : "GuideId"
   }
 ,
   {
@@ -16,7 +17,8 @@
     "time": "14:00",
     "description": "Scenic hike on Floyen Mountain trails",
     "price": "175 kr",
-    "status" : "unavailable"
+    "status" : "unavailable",
+    "guideID" : ""
   }
 ,
   {
@@ -26,7 +28,8 @@
     "time": "11:30",
     "description": "Walking tour of Bryggen's historic architecture",
     "price": "190 kr",
-    "status" : "unavailable"
+    "status" : "unavailable",
+    "guideID" : ""
   }
 
 ]
