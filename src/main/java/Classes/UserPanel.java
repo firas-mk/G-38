@@ -739,26 +739,24 @@ public class UserPanel {
             this.guide = guide;
         }
 
-        public void guideMenu() {
+        public static void guideMenu() {
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
-            System.out.println("| Guide Menu: Choose one of the options below                |");
+            System.out.println("|        Guide Menu: Choose one of the options below        |");
             System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show All Available Tours\n" +
-                    "[2] Book a Tour\n" +
-                    "[3] Log Out" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT +
+                    "[1] Find Tours to book\n" +
+                    "[2] Log Out" + ConsoleColors.RESET);
 
             Scanner scanner = new Scanner(System.in);
             int choice = Integer.parseInt(scanner.nextLine());
 
             switch (choice) {
+
                 case 1:
-                    searchAndDisplayCities();
-                    break;
-                case 2:
                     getAvailableCities("src/main/java/JSON_files/available_cities.json");
                     Guide.bookTour("GuideId");
                     break;
-                case 3:
+                case 2:
                     logOut();
                     break;
                 default:
