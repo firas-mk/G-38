@@ -91,6 +91,68 @@ public class Admin extends UserPanel {
     }
 
 
+    public static void showAllTours() {
+        try {
+            String filePath = "src/main/java/JSON_files/available_cities.json";
+            JsonNode availableCities = objectMapper.readTree(new File(filePath));
+            ArrayNode citiesArray = (ArrayNode) availableCities;
+
+            // Display available cities for the admin to choose
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
+            System.out.println("| Available Cities for Tours");
+            System.out.println("------------------------------------" + ConsoleColors.RESET);
+
+            for (JsonNode city : citiesArray) {
+                System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[" + city.get("cityNr").asInt() + "] " + city.get("cityName").asText() + ConsoleColors.RESET);
+            }
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("\nEnter the city number to view tours: ");
+            int selectedCityNumber = Integer.parseInt(scanner.nextLine());
+
+            // Find the selected city
+            JsonNode selectedCity = null;
+            for (JsonNode city : citiesArray) {
+                if (city.get("cityNr").asInt() == selectedCityNumber) {
+                    selectedCity = city;
+                    break;
+                }
+            }
+
+            if (selectedCity != null) {
+                String cityFilePath = selectedCity.get("jsonFilePath").asText();
+                ArrayNode toursArray = (ArrayNode) objectMapper.readTree(new File(cityFilePath));
+
+                // Display tours for the selected city
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
+                System.out.println("| Tours Information for " + selectedCity.get("cityName").asText());
+                System.out.println("------------------------------------" + ConsoleColors.RESET);
+
+                for (JsonNode tour : toursArray) {
+                    if (tour instanceof ObjectNode) {
+                        ObjectNode tourObject = (ObjectNode) tour;
+
+                        System.out.println(ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT +
+                                "\n[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT + tourObject.get("tourNr").asInt() +
+                                ConsoleColors.RESET +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + tourObject.get("location").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date: " + tourObject.get("date").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Time: " + tourObject.get("time").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Description: " + tourObject.get("description").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Price: " + tourObject.get("price").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "touristID: " + tourObject.get("touristID").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "guideID: " + tourObject.get("guideID").asText() +
+                                "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Status: " + tourObject.get("status").asText() +
+                                "\n------------------------------------");
+                    }
+                }
+            } else {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid city number!" + ConsoleColors.RESET);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
