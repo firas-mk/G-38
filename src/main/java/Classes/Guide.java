@@ -7,9 +7,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -18,32 +15,14 @@ public class Guide {
     private String guideId;
     private String name;
     private String contactInformation;
-    private List<Tour> tours;
 
     public Guide(String guideId, String name, String contactInformation) {
         this.guideId = guideId;
         this.name = name;
         this.contactInformation = contactInformation;
-        this.tours = new ArrayList<>();
     }
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public void addTour(Tour tour) {
-        tours.add(tour);
-    }
-
-
-    public List<Tour> getTours() {
-        return tours;
-    }
-
-    public List<Booking> viewBookings() {
-        List<Booking> guideBookings = new ArrayList<>();
-        for (Tour t : tours) {
-            guideBookings.addAll(t.getBookings());
-        }
-        return guideBookings;
-    }
 
 
     public String getGuideId() {
