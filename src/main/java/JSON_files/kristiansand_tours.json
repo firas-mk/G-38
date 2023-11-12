@@ -7,7 +7,8 @@
     "description": "Architectural tour of the beautiful cathedral",
     "price": "170 kr",
     "status" : "available",
-    "guideID" : "GuideId"
+    "guideID" : "GuideId",
+    "touristID" : ""
   }
 ,
   {
@@ -18,7 +19,8 @@
     "description": "Relaxing beachfront walk at Bystranda",
     "price": "150 kr",
     "status" : "unavailable",
-    "guideID" : ""
+    "guideID" : "",
+    "touristID" : ""
   }
 ,
   {
@@ -29,7 +31,8 @@
     "description": "Stroll along the scenic boardwalk in Kristiansand",
     "price": "165 kr",
     "status" : "unavailable",
-    "guideID" : ""
+    "guideID" : "",
+    "touristID" : ""
   }
 
 ]

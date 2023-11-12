@@ -6,7 +6,8 @@
   "description" : "Boat tour along the picturesque Halden Canal",
   "price" : "190 kr",
   "status" : "available",
-  "guideID" : "GuideId"
+  "guideID" : "GuideId",
+  "touristID" : ""
 }, {
   "tourNr" : 2,
   "location" : "Rød Manor",
@@ -16,7 +17,8 @@
   "price" : "175 kr",
   "status" : "available",
   "guideID" : "GuideId",
-  "Guide" : "GuideId"
+  "Guide" : "GuideId",
+  "touristID" : ""
 }, {
   "tourNr" : 3,
   "location" : "Idd Church",
@@ -25,5 +27,6 @@
   "description" : "Guided tour of the charming Idd Church",
   "price" : "160 kr",
   "status" : "unavailable",
-  "guideID" : ""
+  "guideID" : "",
+  "touristID" : ""
 } ]

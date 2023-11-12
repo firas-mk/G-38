@@ -7,7 +7,8 @@
   "price" : "160 kr",
   "status" : "available",
   "guideID" : "GuideId",
-  "Guide" : "GuideId"
+  "Guide" : "GuideId",
+  "touristID" : ""
 }, {
   "tourNr" : 2,
   "location" : "The Norwegian Opera & Ballet",
@@ -17,7 +18,8 @@
   "price" : "220 kr",
   "Guide" : "GuideId",
   "status" : "available",
-  "guideID" : "GuideId"
+  "guideID" : "GuideId",
+  "touristID" : ""
 }, {
   "tourNr" : 3,
   "location" : "Vigeland Park ",
@@ -26,5 +28,16 @@
   "description" : "Guided sculpture tour in Vigeland Park",
   "price" : "180 kr",
   "status" : "available",
-  "guideID" : "GuideId"
+  "guideID" : "GuideId",
+  "touristID" : ""
+}, {
+  "tourNr" : 4,
+  "location" : "sa7et almerge",
+  "date" : "1212.2029",
+  "time" : "06:00",
+  "description" : "goot tour",
+  "price" : "222",
+  "status" : "unavailable",
+  "guideID" : "",
+  "touristID" : ""
 } ]
