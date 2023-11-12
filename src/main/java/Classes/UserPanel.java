@@ -696,7 +696,8 @@ public class UserPanel {
             System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
             System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show all tours\n" + "[2] Add a tour\n" +
                     "[3] Delete a tour\n" +
-                    "[4] Log out" + ConsoleColors.RESET);
+                    "[4] Edit a tour\n" +
+                    "[5] Log out" + ConsoleColors.RESET);
 
             int adminChoice = Integer.parseInt(scanner.nextLine());
             switch (adminChoice) {
@@ -723,6 +724,8 @@ public class UserPanel {
                     break;
 
                 case 4:
+                    Admin.editTour();
+                case 5:
                     logOut();
                 default:
                     System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
