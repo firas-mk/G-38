@@ -6,7 +6,8 @@
   "description" : "Ski jump history tour with panoramic views",
   "price" : "160 kr",
   "status" : "available",
-  "guideID" : "GuideId"
+  "guideID" : "GuideId",
+  "Guide" : "GuideId"
 }, {
   "tourNr" : 2,
   "location" : "The Norwegian Opera & Ballet",
@@ -14,8 +15,9 @@
   "time" : "19:00",
   "description" : "Behind-the-scenes tour of the Opera House",
   "price" : "220 kr",
-  "status" : "unavailable",
-  "guideID" : ""
+  "Guide" : "GuideId",
+  "status" : "available",
+  "guideID" : "GuideId"
 }, {
   "tourNr" : 3,
   "location" : "Vigeland Park ",
@@ -23,6 +25,6 @@
   "time" : "11:00",
   "description" : "Guided sculpture tour in Vigeland Park",
   "price" : "180 kr",
-  "status" : "unavailable",
-  "guideID" : ""
+  "status" : "available",
+  "guideID" : "GuideId"
 } ]

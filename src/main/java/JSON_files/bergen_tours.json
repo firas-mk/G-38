@@ -17,8 +17,8 @@
     "time": "14:00",
     "description": "Scenic hike on Floyen Mountain trails",
     "price": "175 kr",
-    "status" : "unavailable",
-    "guideID" : ""
+    "status" : "available",
+    "guideID" : "GuideId"
   }
 ,
   {
@@ -28,8 +28,8 @@
     "time": "11:30",
     "description": "Walking tour of Bryggen's historic architecture",
     "price": "190 kr",
-    "status" : "unavailable",
-    "guideID" : ""
+    "status" : "available",
+    "guideID" : "GuideId"
   }
 
 ]
