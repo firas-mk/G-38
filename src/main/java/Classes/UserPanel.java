@@ -694,13 +694,16 @@ public class UserPanel {
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
             System.out.println("| You are now in the main menu, choose one of the options below |");
             System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Add a tour\n" +
-                    "[2] Delete a tour\n" +
-                    "[3] Log out" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show all tours\n" + "[2] Add a tour\n" +
+                    "[3] Delete a tour\n" +
+                    "[4] Log out" + ConsoleColors.RESET);
 
             int adminChoice = Integer.parseInt(scanner.nextLine());
             switch (adminChoice) {
                 case 1:
+                    Admin.showAllTours();
+                    break;
+                case 2:
                     //System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
                     //int tourNumber = Integer.parseInt(scanner.nextLine());
                     String file = "src/main/java/JSON_files/available_cities.json";
@@ -708,7 +711,7 @@ public class UserPanel {
                     Admin.addTour();
                     break;
 
-                case 2:
+                case 3:
                     System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Available Tours: ");
                     String fileForDelete = "src/main/java/JSON_files/available_cities.json";
                     getAvailableCities(fileForDelete);
@@ -719,7 +722,7 @@ public class UserPanel {
                     Admin.deleteTour(cityNumberToDelete, tourNumberToDelete);
                     break;
 
-                case 3:
+                case 4:
                     logOut();
                 default:
                     System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
