@@ -63,23 +63,35 @@ public class Guide {
             ArrayNode toursArray = (ArrayNode) objectMapper.readTree(new File(filePath));
 
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
-            System.out.println("| Available tours in " + cityNumber);
+            System.out.println("| Available tours in city number: " + cityNumber);
             System.out.println("------------------------------------" + ConsoleColors.RESET);
             for (JsonNode tour : toursArray) {
                 if (tour instanceof ObjectNode) {
                     ObjectNode tourObject = (ObjectNode) tour;
-
+                    String status = tour.get("status").asText();
+                    int totalAvailableTours = 0;
+                    JsonNode jsonFile = objectMapper.readTree(new File(filePath));
+                    int totalTours = jsonFile.size();
                     // Display tour details
-                    System.out.println("Tour Number: " + tourObject.get("tourNr").asInt());
-                    System.out.println("Location: " + tourObject.get("location").asText());
-                    System.out.println("Date: " + tourObject.get("date").asText());
-                    System.out.println("Time: " + tourObject.get("time").asText());
-                    System.out.println("Description: " + tourObject.get("description").asText());
-                    System.out.println("Price: " + tourObject.get("price").asText());
-                    System.out.println("");
-
-                    // You can add more details here as needed
-
+                    if (status.equals("unavailable")){
+                    System.out.println(
+                            "\n"+ ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourObject.get("tourNr").asInt() + ConsoleColors.RESET +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Location: " + tourObject.get("location").asText() +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Date: " + tourObject.get("date").asText() +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Time: " + tourObject.get("time").asText() +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Description: " + tourObject.get("description").asText() +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Price: " + tourObject.get("price").asText() + "\n"
+                    );
+                        for (int i = 0; i <= totalTours; i++) {
+                            if (status.equals("unavailable")){
+                                totalAvailableTours += 1;
+                            }}
+                    }
+                    if (totalAvailableTours == 0) {
+                        System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! \n" + ConsoleColors.RESET);
+                        UserPanel.GuidePanel.guideMenu();
+                         break;
+                    }
                     // Separate each tour with a line
                     System.out.println("------------------------------------");
                 }
