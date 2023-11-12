@@ -62,6 +62,10 @@ public class Admin extends UserPanel {
                 System.out.println("Enter the price: ");
                 newTour.put("price", scanner.nextLine());
 
+                newTour.put("status", "unavailable");
+                newTour.put("guideID", "");
+                newTour.put("touristID", "");
+
                 // add the new tour node to the tours array
                 ArrayNode toursArray = (ArrayNode) objectMapper.readTree(new File(filePath));
                 toursArray.add(newTour);
