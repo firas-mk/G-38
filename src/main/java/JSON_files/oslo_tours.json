@@ -1,5 +1,6 @@
 [ {
   "tourNr" : 1,
+  "tourID" : 331176,
   "location" : "Holmenkollen Ski Jump",
   "date" : "30.10.2023",
   "time" : "13:30",
@@ -7,37 +8,27 @@
   "price" : "160 kr",
   "status" : "available",
   "guideID" : "GuideId",
-  "Guide" : "GuideId",
   "touristID" : ""
 }, {
   "tourNr" : 2,
+  "tourID" : 997865,
   "location" : "The Norwegian Opera & Ballet",
   "date" : "28.10.2023",
   "time" : "19:00",
   "description" : "Behind-the-scenes tour of the Opera House",
   "price" : "220 kr",
-  "Guide" : "GuideId",
-  "status" : "available",
-  "guideID" : "GuideId",
+  "status" : "unavailable",
+  "guideID" : "",
   "touristID" : ""
 }, {
   "tourNr" : 3,
+  "tourID" : 653876,
   "location" : "Vigeland Park ",
   "date" : "23.10.2023",
   "time" : "11:00",
   "description" : "Guided sculpture tour in Vigeland Park",
   "price" : "180 kr",
-  "status" : "available",
-  "guideID" : "GuideId",
-  "touristID" : ""
-}, {
-  "tourNr" : 4,
-  "location" : "sa7et almerge",
-  "date" : "1212.2029",
-  "time" : "06:00",
-  "description" : "goot tour",
-  "price" : "222",
   "status" : "unavailable",
   "guideID" : "",
   "touristID" : ""
-} ]
+}]

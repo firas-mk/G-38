@@ -1,6 +1,7 @@
 [
   {
     "tourNr" : 1,
+    "tourID" : 432762,
     "location": "Kristiansand Cathedral",
     "date": "24.10.2023",
     "time": "15:00",
@@ -13,6 +14,7 @@
 ,
   {
     "tourNr" : 2,
+    "tourID" : 432232,
     "location": "Bystranda Beach",
     "date": "26.10.2023",
     "time": "10:30",
@@ -25,6 +27,7 @@
 ,
   {
     "tourNr" : 3,
+    "tourID" : 732762,
     "location": "Kristiansand Boardwalk ",
     "date": "31.10.2023",
     "time": "14:00",

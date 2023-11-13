@@ -1,5 +1,6 @@
 [ {
   "tourNr" : 1,
+  "tourID" : 989762,
   "location" : "Halden Canal ",
   "date" : "22.10.2023",
   "time" : "12:00",
@@ -10,6 +11,7 @@
   "touristID" : ""
 }, {
   "tourNr" : 2,
+  "tourID" : 431092,
   "location" : "Rød Manor",
   "date" : "27.10.2023",
   "time" : "15:30",
@@ -20,6 +22,7 @@
   "touristID" : ""
 }, {
   "tourNr" : 3,
+  "tourID" : 352787,
   "location" : "Idd Church",
   "date" : "29.10.2023",
   "time" : "11:00",
