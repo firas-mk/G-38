@@ -385,11 +385,13 @@ public class UserPanel {
                     String location = tour.get("location").asText();
                     String date = tour.get("date").asText();
                     String time = tour.get("time").asText();
+                    String tourID = tour.get("tourID").asText();
 
                     System.out.println(
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "City: " + city +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + location +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date & Time: " + date + " - " + time +
+                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "TourID: " + tourID +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "===============================" + ConsoleColors.RESET
                     );
                 }
@@ -476,6 +478,7 @@ public class UserPanel {
     therefore it moved into an own function */
     public static void assignJsonValues(JsonNode bookingFile, ObjectNode bookedTour, JsonNode tour, String city) {
         int tourNumber;
+        String tourID = tour.get("tourID").asText();
         String location = tour.get("location").asText();
         String date = tour.get("date").asText();
         String time = tour.get("time").asText();
@@ -488,6 +491,7 @@ public class UserPanel {
 
         tourNumber = bookingFile.size();
         bookedTour.put("tourNr", tourNumber + 1);
+        bookedTour.put("tourID", tourID);
         bookedTour.put("city", city);
         bookedTour.put("location", location);
         bookedTour.put("date", date);
@@ -694,7 +698,8 @@ public class UserPanel {
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
             System.out.println("| You are now in the main menu, choose one of the options below |");
             System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show all tours\n" + "[2] Add a tour\n" +
+            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show all tours\n" +
+                    "[2] Add a tour\n" +
                     "[3] Delete a tour\n" +
                     "[4] Edit a tour\n" +
                     "[5] Log out" + ConsoleColors.RESET);
@@ -705,8 +710,6 @@ public class UserPanel {
                     Admin.showAllTours();
                     break;
                 case 2:
-                    //System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Number 1 for the confirm: ");
-                    //int tourNumber = Integer.parseInt(scanner.nextLine());
                     String file = "src/main/java/JSON_files/available_cities.json";
                     getAvailableCities(file);
                     Admin.addTour();
@@ -725,8 +728,11 @@ public class UserPanel {
 
                 case 4:
                     Admin.editTour();
+                    break;
                 case 5:
                     logOut();
+                    isAdminRunning = false;
+                    break;
                 default:
                     System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
                     adminPanel();
