@@ -18,7 +18,7 @@ public class Tour {
     private Date dateTime;
     private double price;
     private String status;
-    private List<Booking> bookings;
+
 
     public Tour(String tourNr, String location, Date dateTime, double price, String status) {
         this.tourNr = tourNr;
@@ -26,7 +26,7 @@ public class Tour {
         this.dateTime = dateTime;
         this.price = price;
         this.status = status;
-        this.bookings = new ArrayList<>();
+
     }
 
 
@@ -43,9 +43,7 @@ public class Tour {
     }
 
 
-    public List<Booking> getBookings() {
-        return bookings;
-    }
+
 
     public void updateLocation(String newLocation) {
         this.location = newLocation;
@@ -59,39 +57,5 @@ public class Tour {
         this.price = newPrice;
     }
 
-   /* public void updateAvailableSeats(int amount) {
-        this.availableSeats = amount;
-    }*/
 
-    public void addBooking(Booking booking) {
-        bookings.add(booking);
-    }
-
-    public void approveBooking(Booking booking) {
-    }
-
- /*   public void rejectBooking(Booking booking) {
-    }
-    // Metode for å lagre Tour-data til JSON-fil
-    public void saveToJson(String filename) {
-        try (FileWriter writer = new FileWriter(filename)) {
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<Tour>>() {}.getType();
-            gson.toJson(this, listType, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Metode for å lese Tour-data fra JSON
-    public static Tour loadFromJson(String filename) {
-        try {
-            Gson gson = new Gson();
-            Tour tour = gson.fromJson(new FileReader(filename), Tour.class);
-            return tour;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 }

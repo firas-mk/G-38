@@ -80,10 +80,7 @@ public class Guide {
                     System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Tour number does not exist!" + ConsoleColors.RESET);
                     return;
                 }
-
                 // Read the existing tours from the JSON file
-
-
                 for (JsonNode tour : toursArray) {
                     if (tour.get("tourNr").asInt() == tourNumber) {
                         if (tour instanceof ObjectNode) {
@@ -107,7 +104,7 @@ public class Guide {
 
                             // Write the updated tours array back to the JSON file
                             objectMapper.writeValue(new File(filePath), toursArray);
-
+                            UserPanel.GuidePanel.guideMenu();
                             return;
                         }
                     }
@@ -152,7 +149,7 @@ public class Guide {
         return false;
     }
 
-              public static void showAvailableTours() {}
+          /*    public static void showAvailableTours() {}*/
 
 
 
