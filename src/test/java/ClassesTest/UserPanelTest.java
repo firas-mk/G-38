@@ -1,4 +1,4 @@
-package Classes;
+import Classes.UserPanel;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
