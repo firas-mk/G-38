@@ -13,11 +13,11 @@ dependencies {
     // Other dependencies
 
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.7.1")
-    implementation("junit:junit:4.13.1")
-    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("junit:junit:4.13.2")
+    implementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.8.1")
 
