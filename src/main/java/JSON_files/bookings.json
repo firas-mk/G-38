@@ -1,10 +1,1 @@
-[ {
-  "tourNr" : 1,
-  "city" : "Oslo",
-  "location" : "Holmenkollen Ski Jump",
-  "date" : "30.10.2023",
-  "time" : "13:30",
-  "description" : "Ski jump history tour with panoramic views",
-  "price" : "160 kr",
-  "touristID" : "tourist ID"
-} ]
+[]
