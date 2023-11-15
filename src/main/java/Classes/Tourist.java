@@ -265,7 +265,7 @@ public class Tourist  {
 
     }
 
-    // booking logic, books a tour either from search section or directly from favored tours, then add the booked tour to a bookings.json
+    // booking logic, books a tour either from search section or directly from favored tours, then add the booked  tour to a bookings.json
     public static void bookTour(int tourNr, String cityName, String JSONFilepath, String bookingContext){
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
 
