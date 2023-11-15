@@ -47,56 +47,7 @@ public class Tourist  {
     }
     /*       --- [Tourist] related functions ---          */
 
-    /**
-     *
-     *  <b>turistNavigatonOptions()</b> is a function that gives the user who's logged in as "Turist" severeal options to chose
-     *  from in order to navigate further
-     *  <p>
-     *  We handle it as a "navigation panel/bar" or "main menu" where the the user can choose between the options in order to:
-     *  </p>
-     *  <ul>
-     *      <li> search for tours
-     *      <li> check / show their favorite list
-     *      <li> logout
-     *      <li> etc.
-     * </ul>
-     */ //DESC-Javadoc ---> turistNavigatonOptions()
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    public static void touristPanel(){
-        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
-        System.out.println("| You are now in the main menu, choose one of the options below |");
-        System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show available Tours\n" +
-                "[2] Show favorite\n" +
-                "[3] Show Booked tours\n" +
-                "[4] Log Out" + ConsoleColors.RESET);
-        Scanner userLoginOption = new Scanner(System.in);
-        int userInput = Integer.parseInt(userLoginOption.nextLine());
-        switch (userInput) {
-            case 1:
-                UserPanel.searchAndDisplayCities();
-                break;
-            case 2:
-                getFavoriteTours(); // Show favorite tours
-                break;
-
-            case 3:
-                getAndDisplayBookedTours();
-                touristPanel();
-                break;
-            case 4:
-                UserPanel.logOut();
-                break;
-            default:
-                System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
-                touristPanel();
-                break;
-        }
-
-
-    }
-
-
 
     /* Method to display tours based on what city user chosen, it's displays tours dynamically,
         so whenever a new tour being added to a tour related json file it will be displayed.
@@ -223,7 +174,7 @@ public class Tourist  {
             String location;
             if (favoriteToursFile.isEmpty()) {
                 System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ You have no favorite tours saved." + ConsoleColors.RESET);
-                touristPanel();
+                UserPanel.touristPanel();
             }else {
 
                 for (JsonNode tour : favoriteToursFile) {
@@ -255,7 +206,7 @@ public class Tourist  {
                 System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour, [0 -> Go Back]: " + ConsoleColors.RESET);
                 userChoice = Integer.parseInt(userInput.nextLine());
                 if (userChoice == 0) {
-                    touristPanel();// Go back to the list of available cities
+                    UserPanel.touristPanel();// Go back to the list of available cities
                 } else if (userChoice <= totalFavTours && userChoice >= 1){
                     bookOrRemoveTourFromFavorite(userChoice, city, favoriteToursJsonFile);
 
@@ -284,7 +235,7 @@ public class Tourist  {
 
             if (bookedToursFile.isEmpty()) {
                 System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ You have no booked tours yet." + ConsoleColors.RESET);
-                touristPanel();
+                UserPanel.touristPanel();
             }else {
 
                 for (JsonNode tour : bookedToursFile) {
@@ -368,7 +319,7 @@ public class Tourist  {
                     payment();
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour booked successfully ✔" + ConsoleColors.RESET);
                     removeTourFromFavorite(tourNr);
-                    touristPanel();
+                    UserPanel.touristPanel();
                     break;
 
                 default:
@@ -468,7 +419,7 @@ public class Tourist  {
                     break;
                 case 1:
                     removeTourFromFavorite(selectedTour);
-                    touristPanel(); // Automatically go back to the tourist panel
+                    UserPanel.touristPanel(); // Automatically go back to the tourist panel
                     break;
                 case 2:
                     bookTour(selectedTour, cityName, JSONFilepath,"Favorite");

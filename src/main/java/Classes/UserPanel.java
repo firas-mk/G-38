@@ -144,7 +144,53 @@ public class UserPanel {
     }
 
 
-    /*       --- [Admin] related functions ---           */
+    /**
+     *
+     *  <b>turistNavigatonOptions()</b> is a function that gives the user who's logged in as "Turist" severeal options to chose
+     *  from in order to navigate further
+     *  <p>
+     *  We handle it as a "navigation panel/bar" or "main menu" where the the user can choose between the options in order to:
+     *  </p>
+     *  <ul>
+     *      <li> search for tours
+     *      <li> check / show their favorite list
+     *      <li> logout
+     *      <li> etc.
+     * </ul>
+     */ //DESC-Javadoc ---> turistNavigatonOptions()
+    public static void touristPanel(){
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
+        System.out.println("| You are now in the main menu, choose one of the options below |");
+        System.out.println("-----------------------------------------------------------------" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Show available Tours\n" +
+                "[2] Show favorite\n" +
+                "[3] Show Booked tours\n" +
+                "[4] Log Out" + ConsoleColors.RESET);
+        Scanner userLoginOption = new Scanner(System.in);
+        int userInput = Integer.parseInt(userLoginOption.nextLine());
+        switch (userInput) {
+            case 1:
+                UserPanel.searchAndDisplayCities();
+                break;
+            case 2:
+                Tourist.getFavoriteTours(); // Show favorite tours
+                break;
+
+            case 3:
+                Tourist.getAndDisplayBookedTours();
+                touristPanel();
+                break;
+            case 4:
+                UserPanel.logOut();
+                break;
+            default:
+                System.out.println(ConsoleColors.RED + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
+                touristPanel();
+                break;
+        }
+
+
+    }
     public static void adminPanel() {
         boolean isAdminRunning = true;
         Scanner scanner = new Scanner(System.in);
