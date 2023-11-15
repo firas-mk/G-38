@@ -8,8 +8,8 @@
   "jsonFilePath": "src/main/java/JSON_files/bergen_tours.json"
 },{
   "cityNr" : 3,
-  "cityName": "Kristiandsand",
-  "jsonFilePath": "src/main/java/JSON_files/kristiansand_tours.json"
+  "cityName": "Lofoten",
+  "jsonFilePath": "src/main/java/JSON_files/lofoten_tours.json"
 },{
   "cityNr" : 4,
   "cityName": "Halden",
