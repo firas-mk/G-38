@@ -59,7 +59,7 @@ public class UserPanel {
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Tourist]" + ConsoleColors.RESET);
                 Tourist tourist = new Tourist("TouristId", "Tourist name", "Contact info");
-                Tourist.touristPanel();
+                touristPanel();
                 break;
             case 2:
                 loadingProgress();
@@ -107,7 +107,7 @@ public class UserPanel {
             JsonNode jsonCityFile = objectMapper.readTree(new File(file));
             if (jsonCityFile.isEmpty()){
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "|| Oops, looks like there is no cities available! ||" + ConsoleColors.RESET);
-                Tourist.touristPanel();
+                touristPanel();
             }else {
                 for (JsonNode city : jsonCityFile){
                     String cityNr = city.get("cityNr").asText();
@@ -137,7 +137,7 @@ public class UserPanel {
 
 
         if (userChoice == 0) {
-            Tourist.touristPanel(); // Go back to the main menu
+            touristPanel(); // Go back to the main menu
         } else {
             Tourist.displayToursOfACity(userChoice);
         }
