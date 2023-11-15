@@ -1,0 +1,41 @@
+[
+  {
+    "tourNr" : 1,
+    "tourID" : 432762,
+    "location": "Reinebringen",
+    "date": "27.10.2023",
+    "time": "08:00",
+    "description": "Guided hiking to the breathtaking Reinebringen viewpoint.",
+    "price": "200 kr",
+    "status" : "available",
+    "guideID" : "GuideId",
+    "touristID" : ""
+  }
+,
+  {
+    "tourNr" : 2,
+    "tourID" : 432232,
+    "location": "Svolværgeita",
+    "date": "29.10.2023",
+    "time": "09:00",
+    "description": "Adventurous climbing experience at the iconic Svolværgeita peak.",
+    "price": "250 kr",
+    "status" : "unavailable",
+    "guideID" : "",
+    "touristID" : ""
+  }
+,
+  {
+    "tourNr" : 3,
+    "tourID" : 732762,
+    "location": "Haukland Beach",
+    "date": "28.10.2023",
+    "time": "12:00",
+    "description": "Scenic walk along the stunning Haukland Beach with photography opportunities.",
+    "price": "70 kr",
+    "status" : "unavailable",
+    "guideID" : "",
+    "touristID" : ""
+  }
+
+]
