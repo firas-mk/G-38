@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 public class UserPanel {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
     public static void loadingProgress(){
@@ -103,6 +102,7 @@ public class UserPanel {
     public static void getAvailableCities(String file){
         try{
 
+            ObjectMapper objectMapper = new ObjectMapper();
 
             JsonNode jsonCityFile = objectMapper.readTree(new File(file));
             if (jsonCityFile.isEmpty()){
@@ -146,18 +146,18 @@ public class UserPanel {
 
     /**
      *
-     *  <b>turistNavigatonOptions()</b> is a function that gives the user who's logged in as "Turist" severeal options to chose
+     *  <b>touristPanel()</b> is a function that gives the user who's logged in as "Tourist" several options to chose
      *  from in order to navigate further
      *  <p>
      *  We handle it as a "navigation panel/bar" or "main menu" where the the user can choose between the options in order to:
      *  </p>
      *  <ul>
-     *      <li> search for tours
-     *      <li> check / show their favorite list
-     *      <li> logout
-     *      <li> etc.
+     *      <li> Show available tours
+     *      <li> Show favorite
+     *      <li> Show booked tours
+     *      <li> log out
      * </ul>
-     */ //DESC-Javadoc ---> turistNavigatonOptions()
+     */ //DESC-Javadoc ---> touristPanel()
     public static void touristPanel(){
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
         System.out.println("| You are now in the main menu, choose one of the options below |");
