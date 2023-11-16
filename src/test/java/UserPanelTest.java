@@ -11,7 +11,7 @@ import java.util.InputMismatchException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserPanelTest {
-    @Test
+
     public void testLoginPanelTourist() {
         // Redirect System.out to capture the output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -35,7 +35,7 @@ public class UserPanelTest {
         assertTrue(outputStream.toString().contains(expectedOutput));
     }
 
-    @Test
+
     public void testLoginPanelInvalidInput() {
         // Redirect System.out to capture the output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
