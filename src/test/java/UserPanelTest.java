@@ -1,63 +1,42 @@
 import Classes.UserPanel;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+
 import java.io.PrintStream;
-import java.util.InputMismatchException;
+
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserPanelTest {
+    private final PrintStream stdOutput = System.out;
+    private final ByteArrayInputStream userSimulatedInput = new ByteArrayInputStream("n\n".getBytes());
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-    public void testLoginPanelTourist() {
-        // Redirect System.out to capture the output
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
+    @BeforeEach
+    public void setUp() {
         System.setOut(new PrintStream(outputStream));
-        System.out.println("HELLLOOO");
-
-        // Provide input for the scanner
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("1\n".getBytes());
-        System.setIn(inputStream);
-
-        // Call the method to be tested
-        UserPanel.loginPanel();
-
-        // Reset System.in and System.out
-        System.setIn(System.in);
-        System.setOut(System.out);
-
-        // Verify the output
-        String expectedOutput = "You are now logged in as [Tourist]";
-        assertTrue(outputStream.toString().contains(expectedOutput));
+        System.setIn(userSimulatedInput);
     }
 
+    @Test
+    public void testLogOutNoInput() {
+        UserPanel.logOut(); 
 
-    public void testLoginPanelInvalidInput() {
-        // Redirect System.out to capture the output
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
-        // Provide invalid input for the scanner
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("invalid\n".getBytes());
-        System.setIn(inputStream);
-
-        // Call the method to be tested and expect an InputMismatchException
-        assertThrows(InputMismatchException.class, UserPanel::loginPanel);
-
-        // Reset System.in and System.out
-        System.setIn(System.in);
-        System.setOut(System.out);
-
-        // Verify the output
-        String expectedOutput = "◆ invalid number! Enter 1, 2 or 3";
-        System.out.println("expected output");
-        assertTrue(outputStream.toString().contains(expectedOutput));
+        String expectedOutput = "◆ Thank you for using Tourly. See you later ;)";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedOutput));
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(stdOutput);
+        System.setIn(System.in);
+    }
 
     @Test
     public void testLoginPanelInvalidInput3() {
