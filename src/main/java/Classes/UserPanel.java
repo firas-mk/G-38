@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+
+import Interface.GeneralFunctions;
+import Interface.GeneralFunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -11,7 +14,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
-public class UserPanel {
+public class UserPanel implements GeneralFunctions {
 
 
     public static void loadingProgress(){

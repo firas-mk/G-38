@@ -88,7 +88,6 @@ public class Guide {
 
                             // booking
                             System.out.println("Tour booked successfully! ");
-                            tourObject.put("Guide", guideId);
                             // Display  values
                             System.out.println("You have bookde this tour:");
                             System.out.println("Location: " + tourObject.get("location").asText());
