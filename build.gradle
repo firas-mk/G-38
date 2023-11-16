@@ -19,4 +19,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
