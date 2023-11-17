@@ -1,3 +1,4 @@
+import Classes.Tourist;
 import Classes.UserPanel;
 
 import org.junit.jupiter.api.AfterEach;
@@ -14,24 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserPanelTest {
     private final PrintStream stdOutput = System.out;
-    private final ByteArrayInputStream userSimulatedInput = new ByteArrayInputStream("n\n".getBytes());
+
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStream));
-        System.setIn(userSimulatedInput);
     }
-
-    @Test
-    public void testLogOutNoInput() {
-        UserPanel.logOut(); 
-
-        String expectedOutput = "◆ Thank you for using Tourly. See you later ;)";
-        String actualOutput = outputStream.toString();
-        assertTrue(actualOutput.contains(expectedOutput));
-    }
-
     @AfterEach
     public void tearDown() {
         System.setOut(stdOutput);
@@ -39,12 +29,24 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testLoginPanelInvalidInput3() {
-        assertEquals(4, 4);
+    public void testLogOutNoInput() {
+        System.setIn(new ByteArrayInputStream("n\n".getBytes()));
+        UserPanel.logOut();
+
+        String expectedOutput = "◆ Thank you for using Tourly. See you later ;)";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedOutput));
     }
     @Test
-    public void testLoginPanelInvalidInput5() {
-        assertEquals(5, 5);
+    public void testLogOutYesInput() {
+        outputStream.reset(); // Reset the output stream before the next test
+        System.setIn(new ByteArrayInputStream("◆ You are successfully logged out, See you later :) ".getBytes()));
+        UserPanel.logOut(); // Invoke the method under test
+
+        String expectedOutput = "Do you want to login? [y/n]:";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedOutput), "Actual output does not contain the login prompt.");
     }
+
 
 }
