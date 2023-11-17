@@ -1,3 +1,4 @@
+import Classes.Admin;
 import Classes.Tourist;
 import Classes.UserPanel;
 
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import java.io.IOException;
 import java.io.PrintStream;
 
 
@@ -47,6 +49,38 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput), "Actual output does not contain the login prompt.");
     }
+
+    @Test
+    public void testGetOsloCityFromAvailableCities(){
+        outputStream.reset();
+        String file = "src/main/java/JSON_files/available_cities.json";
+        UserPanel.getAvailableCities(file);
+
+        String expectedOutput = "Oslo";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedOutput));
+    }
+    @Test
+    public void testKristiansandCityNotAvailableAmongAvailableCities(){
+        outputStream.reset();
+        String file = "src/main/java/JSON_files/available_cities.json";
+        UserPanel.getAvailableCities(file);
+
+        String expectedOutput = "Kristiandsand";
+        String actualOutput = outputStream.toString();
+        assertFalse(actualOutput.contains(expectedOutput));
+    }
+    @Test
+    public void testDisplayToursOfOsloCity(){
+        outputStream.reset();
+        String OsloCityTours = "src/main/java/JSON_files/oslo_tours.json";
+
+        Tourist.getToursFromJSONFile(OsloCityTours);
+        String expectedTour = "Holmenkollen Ski Jump";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedTour));
+    }
+
 
 
 }
