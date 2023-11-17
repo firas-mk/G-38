@@ -1,14 +1,10 @@
-import Classes.Admin;
 import Classes.Tourist;
 import Classes.UserPanel;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
-import java.io.IOException;
 import java.io.PrintStream;
 
 
@@ -82,7 +78,7 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testTourPrice175KrExistsInHaldenTours() throws IOException {
+    public void testTourPrice175KrExistsInHaldenTours() {
         outputStream.reset();
         String HaldenCityTours = "src/main/java/JSON_files/halden_tours.json";
         Tourist.getToursFromJSONFile(HaldenCityTours);
