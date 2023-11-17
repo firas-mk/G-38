@@ -81,6 +81,15 @@ public class UserPanelTest {
         assertTrue(actualOutput.contains(expectedTour));
     }
 
+    @Test
+    public void testTourPrice175KrExistsInHaldenTours() throws IOException {
+        outputStream.reset();
+        String HaldenCityTours = "src/main/java/JSON_files/halden_tours.json";
+        Tourist.getToursFromJSONFile(HaldenCityTours);
+        String expectedTourPrice = "175 kr";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedTourPrice));
 
+    }
 
 }
