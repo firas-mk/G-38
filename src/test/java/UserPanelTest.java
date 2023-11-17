@@ -91,7 +91,6 @@ public class UserPanelTest {
     public void testTourIsUnavailableToBeBookedByTouristInOslo(){
         outputStream.reset();
         String OsloCityTours = "src/main/java/JSON_files/oslo_tours.json";
-
         Tourist.getToursFromJSONFile(OsloCityTours);
         String expectedTourStatus = "unavailable";
         String actualOutput = outputStream.toString();
