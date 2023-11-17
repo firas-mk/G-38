@@ -1,14 +1,9 @@
-import Classes.Admin;
-import Classes.Tourist;
-import Classes.UserPanel;
-
+import Classes.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
-import java.io.IOException;
 import java.io.PrintStream;
 
 
@@ -31,7 +26,7 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testLogOutNoInput() {
+    public void testLogOutNoAsInput() {
         System.setIn(new ByteArrayInputStream("n\n".getBytes()));
         UserPanel.logOut();
 
@@ -82,7 +77,7 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testTourPrice175KrExistsInHaldenTours() throws IOException {
+    public void testTourPrice175KrExistsInHaldenTours() {
         outputStream.reset();
         String HaldenCityTours = "src/main/java/JSON_files/halden_tours.json";
         Tourist.getToursFromJSONFile(HaldenCityTours);
@@ -90,6 +85,17 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedTourPrice));
 
+    }
+
+    @Test
+    public void testTourIsUnavailableToBeBookedByTouristInOslo(){
+        outputStream.reset();
+        String OsloCityTours = "src/main/java/JSON_files/oslo_tours.json";
+
+        Tourist.getToursFromJSONFile(OsloCityTours);
+        String expectedTourStatus = "unavailable";
+        String actualOutput = outputStream.toString();
+        assertFalse(actualOutput.contains(expectedTourStatus));
     }
 
 }
