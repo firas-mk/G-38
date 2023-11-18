@@ -116,7 +116,59 @@ public class Guide {
         }
     }
 
+    public static void showBookedTours(String guideId) {
+        try {
 
+            String availableCitiesFilePath = "src/main/java/JSON_files/available_cities.json";
+            JsonNode availableCities = objectMapper.readTree(new File(availableCitiesFilePath));
+            ArrayNode citiesArray = (ArrayNode) availableCities;
+
+            for (JsonNode city : citiesArray) {
+                int cityNumber = city.get("cityNr").asInt();
+                String cityName = city.get("cityName").asText();  // Fetch city name from JSON
+
+                String cityFilePath = getFilePath(cityNumber);
+
+                // Read the tours from the city's JSON file
+                JsonNode tours = objectMapper.readTree(new File(cityFilePath));
+                ArrayNode toursArray = (ArrayNode) tours;
+
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n------------------------------------");
+                System.out.println("| Booked tours in city: " + cityName);
+                System.out.println("------------------------------------" + ConsoleColors.RESET);
+
+                int totalBookedTours = 0;
+
+                // Iterate through each tour in the city
+                for (JsonNode tour : toursArray) {
+                    if (tour instanceof ObjectNode) {
+                        ObjectNode tourObject = (ObjectNode) tour;
+
+                        // Check if the tour is booked by the specified guide
+                        if (tourObject.has("guideID") && tourObject.get("guideID").asText().equals(guideId)) {
+                            totalBookedTours += 1;
+                            System.out.println(
+                                    "\n" + ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT + tourObject.get("tourNr").asInt() + ConsoleColors.RESET +
+                                            "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + tourObject.get("location").asText() +
+                                            "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date: " + tourObject.get("date").asText() +
+                                            "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Time: " + tourObject.get("time").asText() +
+                                            "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Description: " + tourObject.get("description").asText() +
+                                            "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Price: " + tourObject.get("price").asText() + "\n"
+                                            + "------------------------------------"
+                            );
+                        }
+                    }
+                }
+
+                if (totalBookedTours == 0) {
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there are no booked tours for this guide in city " + cityName + "!\n" + ConsoleColors.RESET);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static String getFilePath(int tourNumber) {
         try {
             String filePath = "src/main/java/JSON_files/available_cities.json";

@@ -261,7 +261,8 @@ public class UserPanel implements GeneralFunctions {
             System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
             System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT +
                     "[1] Find Tours to book\n" +
-                    "[2] Log Out" + ConsoleColors.RESET);
+                    "[2] Show Booked tours\n" +
+                    "[3] Log Out" + ConsoleColors.RESET);
 
             Scanner scanner = new Scanner(System.in);
             int choice = Integer.parseInt(scanner.nextLine());
@@ -270,9 +271,14 @@ public class UserPanel implements GeneralFunctions {
 
                 case 1:
                     getAvailableCities("src/main/java/JSON_files/available_cities.json");
+
                     Guide.bookTour("GuideId");
                     break;
                 case 2:
+                    Guide.showBookedTours("GuideId");
+                    guideMenu();
+                    break;
+                case 3:
                     logOut();
                     break;
                 default:
