@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 
@@ -98,10 +99,9 @@ public class UserPanelTest {
         assertFalse(actualOutput.contains(expectedTourStatus));
     }
 
+    // Notice that all tests are tested towards Oslo city, this is because if tests passes when Oslo, then it will pass when choosing other cities
     @Test
-    public void testAddTour() {
-
-        String testFilePath = "src/main/java/JSON_files/test_tours.json";
+    public void testNewTourCanBeAddedToOsloTours() {
         int cityNumber = 1;
 
         String simulatedUserInput = cityNumber + "\nLocation1\n2023-01-01\n10:00\nA beautiful tour\n500 kr\n";
@@ -116,8 +116,7 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testEditTour() {
-        String testFilePath = "src/main/java/JSON_files/test_tours.json";
+    public void testTourNr2FromOsloToursCanBeEdited() {
         int cityNumber = 1;
         int tourNumberToEdit = 2;
 
@@ -134,10 +133,8 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testDeleteTour() {
-
-        String testFilePath = "src/main/java/JSON_files/test_tours.json";
-        int cityNumber = 1;
+    public void testTourNr3FromOsloToursCanBeDeleted() {
+        int cityNumber = 1; // Oslo City
         int tourNumberToDelete = 3;
 
         Admin.deleteTour(cityNumber, tourNumberToDelete);
@@ -145,7 +142,14 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput), "Tour was not deleted successfully");
     }
+    @Test
+    public void testTourNr3InOsloToursNotAvailableAfterDeleting() throws IOException {
+        String OsloCityTours = "src/main/java/JSON_files/oslo_tours.json";
+        int deletedTourNr = 3;
 
-
-
+        Guide.tourExists(OsloCityTours, deletedTourNr);
+        String expectedMsg = "Tour does not exist";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedMsg));
+    }
 }
