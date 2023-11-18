@@ -273,6 +273,7 @@ public class UserPanel implements GeneralFunctions {
                     getAvailableCities("src/main/java/JSON_files/available_cities.json");
 
                     Guide.bookTour("GuideId");
+                    guideMenu();
                     break;
                 case 2:
                     Guide.showBookedTours("GuideId");

@@ -70,7 +70,7 @@ public class Guide {
             }
             if (totalAvailableTours == 0) {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! \n" + ConsoleColors.RESET);
-                UserPanel.GuidePanel.guideMenu();
+
             }
             System.out.println("Enter the tour number you want to book: ");
             int tourNumber = Integer.parseInt(scanner.nextLine());
@@ -103,7 +103,7 @@ public class Guide {
 
                             // Write the updated tours array back to the JSON file
                             objectMapper.writeValue(new File(filePath), toursArray);
-                            UserPanel.GuidePanel.guideMenu();
+
                             return;
                         }
                     }
