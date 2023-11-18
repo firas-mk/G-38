@@ -194,9 +194,11 @@ public class Guide {
             int existingTourNumber = tour.get("tourNr").asInt();
             if (existingTourNumber == tourNumber) {
                 return true;
+
             }
         }
 
+        System.out.println("Tour does not exist");
         return false;
     }
 
