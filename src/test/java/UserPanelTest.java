@@ -146,54 +146,6 @@ public class UserPanelTest {
         assertTrue(actualOutput.contains(expectedOutput), "Tour was not deleted successfully");
     }
 
-    /*@Test
-    public void testBookTourSuccess() {
-        // Arrange
-        // Assuming that "1" is the city number and "3" is the tour number for the test
-        String input1 = "1";
-        String input2 = "3";
-        /*System.setIn(new ByteArrayInputStream(input1.getBytes()));
-        System.setIn(new ByteArrayInputStream(input2.getBytes()));*/
-/*
-        // Assuming you have a method to set the test file path for the booking
-        String testFilePath = "src/main/java/JSON_files/oslo_tours.json";
-        //Admin.setFilePathForTesting(testFilePath); // Set the file path to a test file
-        String simulatedUserInput = input1 + "\n" + input2 + "\nNew Location\n2023-01-02\n11:00\nUpdated description\n550 kr\n";
-        System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
 
-        // Act
-        Guide.bookTour("guideid");
-
-        // Assert
-        // Verify the output on the console
-        String expectedOutput = "Tour booked successfully!";
-        String actualOutput = outputStream.toString();
-        assertTrue(actualOutput.contains(expectedOutput));
-
-        // Optionally, read the test file and check if the tour status is updated to 'available'
-        // and the guideID is set to "guide123"
-    }*/
-   /* @Test
-    public void testBookTour() {
-        // Simulate user inputs
-        String input = "2\n5\n"; // Example: city number 2 and tour number 5
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        // Mocking file and other dependencies
-        // ... (Depends on your implementation)
-
-        // Call the method
-        Guide.bookTour("guide123");
-
-        // Verify the output
-        assertTrue(outputStreamCaptor.toString().contains("Tour booked successfully"));
-
-        // Verify changes in the JSON file
-        // ... (Read the JSON file and check for updates)
-
-        // Reset System.in to its original state
-        System.setIn(System.in);
-    }*/
 
 }
