@@ -195,6 +195,8 @@ public class Admin extends UserPanel {
     }
 
     public static void editTour() {
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
         try {
             String filePath = "src/main/java/JSON_files/available_cities.json";
             JsonNode availableCities = objectMapper.readTree(new File(filePath));
