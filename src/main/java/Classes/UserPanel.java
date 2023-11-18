@@ -2,21 +2,18 @@ package Classes;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.Scanner;
 
 import Interface.GeneralFunctions;
-import Interface.GeneralFunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
 
 
 public class UserPanel implements GeneralFunctions {
 
-
+    static boolean loginVerified = false;
     public static void loadingProgress(){
         int totalTasks = 5;
 
@@ -47,10 +44,11 @@ public class UserPanel implements GeneralFunctions {
     }
 
     public static void loginPanel() {
-        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
-        System.out.println("| Login by typing in the number of one of the options below |");
-        System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT + "[1] Tourist\n" +
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------"+
+                "\n| Login by typing in the number of one of the options below |"+
+                "\n-------------------------------------------------------------" + ConsoleColors.RESET+
+                ConsoleColors.ORANGE_BOLD_BRIGHT +
+                "\n[1] Tourist\n" +
                 "[2] Guide\n" +
                 "[3] Admin" + ConsoleColors.RESET);
         Scanner userLoginOption = new Scanner(System.in);
@@ -61,6 +59,7 @@ public class UserPanel implements GeneralFunctions {
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Tourist]" + ConsoleColors.RESET);
                 Tourist tourist = new Tourist("TouristId", "Tourist name", "Contact info");
+                loginVerified = true;
                 touristPanel();
                 break;
             case 2:
@@ -68,23 +67,27 @@ public class UserPanel implements GeneralFunctions {
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide]" + ConsoleColors.RESET);
                 Guide guide = new Guide("GuideId", "Guide Name", "Contact Info");
                 GuidePanel guidePanel = new GuidePanel(guide);
+                loginVerified = true;
                 guidePanel.guideMenu();
                 break;
             case 3:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
                 Admin admin = new Admin();
+                loginVerified = true;
                 adminPanel();
                 break;
             /*More code goes here, such as Admin Panel etc.*/
             default:
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ invalid number! Enter 1, 2 or 3 " + ConsoleColors.RESET);
+                loginVerified = false;
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ invalid number! Enter 1, 2 or 3" + ConsoleColors.RESET);
                 loginPanel();
         }
     }
 
     public static void logOut() {
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ You are successfully logged out, See you later :) " + ConsoleColors.RESET);
+        loginVerified = false;
         Scanner userInputScanner = new Scanner(System.in);
         System.out.println(ConsoleColors.YELLOW +"||> Do you want to login? [y/n]: " + ConsoleColors.RESET);
         String userChoice = String.valueOf(userInputScanner.nextLine());
@@ -96,6 +99,7 @@ public class UserPanel implements GeneralFunctions {
 
         } else {
             System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Timed out due to invalid input, you are successfully logged out" + ConsoleColors.RESET);
+
         }
     }
 
