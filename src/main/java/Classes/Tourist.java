@@ -213,6 +213,7 @@ public class Tourist implements GeneralFunctions {
 
 
                 }
+
             }
 
 
@@ -240,13 +241,14 @@ public class Tourist implements GeneralFunctions {
             }else {
 
                 for (JsonNode tour : bookedToursFile) {
+                    String tourNr = tour.get("tourNr").asText();
                     String city = tour.get("city").asText();
                     String location = tour.get("location").asText();
                     String date = tour.get("date").asText();
                     String time = tour.get("time").asText();
                     String tourID = tour.get("tourID").asText();
 
-                    System.out.println(
+                    System.out.println(ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT + tourNr + ConsoleColors.RESET +
                             "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "City: " + city +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + location +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date & Time: " + date + " - " + time +
@@ -256,8 +258,19 @@ public class Tourist implements GeneralFunctions {
                 }
 
             }
-
-
+            int totalBookedTours = bookedToursFile.size();
+            int userChoice = -1;
+            Scanner userInput = new Scanner(System.in);
+            while (userChoice < 0 || userChoice > totalBookedTours){
+                System.out.println(ConsoleColors.YELLOW + "||> Choose tour you want to cancel, [0 -> Go Back]: " + ConsoleColors.RESET);
+                userChoice = Integer.parseInt(userInput.nextLine());
+                if (userChoice == 0) {
+                    UserPanel.touristPanel();// Go back to tourist panel
+                } else if (userChoice <= totalBookedTours && userChoice >= 1){
+                    cancelBookedTour(userChoice);
+                    userChoice = 1; // to exit the loop
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,6 +307,7 @@ public class Tourist implements GeneralFunctions {
                         tourNumber = tour.get("tourNr").asInt();
                         if (tourNr == tourNumber) {
                             assignJsonValues(bookingFile, bookedTour, tour, cityName);
+
                         }
 
                     }
@@ -329,6 +343,28 @@ public class Tourist implements GeneralFunctions {
 
 
         }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void cancelBookedTour(int tourNr){
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
+
+        try {
+            String bookingsJsonFilepath = "src/main/java/JSON_files/bookings.json";
+            JsonNode bookingsFile = objectMapper.readTree(new File(bookingsJsonFilepath));
+            ArrayNode bookedToursArray = (ArrayNode) bookingsFile;
+            for (int i = 0; i < bookedToursArray.size(); i++) {
+                JsonNode tour = bookedToursArray.get(i);
+                int tourNumber = tour.get("tourNr").asInt();
+                if (tourNumber == tourNr){
+                    bookedToursArray.remove(i);
+                    break;
+                }
+            }
+                objectMapper.writeValue(new File(bookingsJsonFilepath), bookedToursArray);
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour has been canceled successfully ✔" + ConsoleColors.RESET);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
