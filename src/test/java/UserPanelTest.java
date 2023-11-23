@@ -161,6 +161,17 @@ public class UserPanelTest {
         assertTrue(actualOutput.contains(expectedMsg));
     }
 
+    @Test
+    public void testABookedTourByTouristCanBeCanceled(){
+        outputStream.reset();
+        int tourToBeCanceled = 1;
 
+        Tourist.cancelBookedTour(tourToBeCanceled);
+        String expectedTourStatus = "◆ Tour has been canceled successfully ✔";
+        String actualOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedTourStatus));
+
+
+    }
 
 }
