@@ -173,9 +173,9 @@ public class UserPanel implements GeneralFunctions {
                 "[2] Show favorite\n" +
                 "[3] Show Booked tours\n" +
                 "[4] Log Out" + ConsoleColors.RESET);
-        Scanner userLoginOption = new Scanner(System.in);
-        int userInput = Integer.parseInt(userLoginOption.nextLine());
-        switch (userInput) {
+        Scanner userInput = new Scanner(System.in);
+        int userChoice = Integer.parseInt(userInput.nextLine());
+        switch (userChoice) {
             case 1:
                 UserPanel.searchAndDisplayCities();
                 break;
