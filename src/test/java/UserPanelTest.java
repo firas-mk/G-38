@@ -35,6 +35,10 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput));
     }
+
+    /* the bug we face in this test is that it does not stop at loginPanel but runs the code further to touristPanel (which it shouldn't) after logging in
+    * this step requires another input when being in touristPanel, this causes the test to stop*/
+
     @Test
     public void testLogOutYesInput() {
         outputStream.reset(); // Reset the output stream before the next test
@@ -70,7 +74,6 @@ public class UserPanelTest {
     public void testDisplayToursOfOsloCity(){
         outputStream.reset();
         String OsloCityTours = "src/main/java/JSON_files/oslo_tours.json";
-
         Tourist.getToursFromJSONFile(OsloCityTours);
         String expectedTour = "Holmenkollen Ski Jump";
         String actualOutput = outputStream.toString();
@@ -131,7 +134,9 @@ public class UserPanelTest {
 
         System.setIn(System.in);
     }
-
+    /* NOTE: if you run the test once and delete tour number 3,
+        next time you run the test it won't pass because tour number 3 is not available
+         since it got deleted when you run the test first time */
     @Test
     public void testTourNr3FromOsloToursCanBeDeleted() {
         int cityNumber = 1; // Oslo City
@@ -142,6 +147,9 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput), "Tour was not deleted successfully");
     }
+
+    /* NOTE: if tour number 3 is not deleted and still available then the test won't pass, in this case the asserTrue should be assertFalse to pass the test.
+        But if you run testTourNr3FromOsloToursCanBeDeleted() first and so this test then it will pass since tour number 3 is deleted and no longer available*/
     @Test
     public void testTourNr3InOsloToursNotAvailableAfterDeleting() throws IOException {
         String OsloCityTours = "src/main/java/JSON_files/oslo_tours.json";
@@ -152,4 +160,7 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedMsg));
     }
+
+
+
 }
