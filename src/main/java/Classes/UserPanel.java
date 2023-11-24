@@ -2,16 +2,13 @@ package Classes;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Scanner;
-
-import Interface.GeneralFunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
-public class UserPanel implements GeneralFunctions {
+public class UserPanel {
 
     static boolean loginVerified = false;
     public static void loadingProgress(){
@@ -270,7 +267,7 @@ public class UserPanel implements GeneralFunctions {
 
             Scanner scanner = new Scanner(System.in);
             int choice = Integer.parseInt(scanner.nextLine());
-
+            System.out.println("HEi");
             switch (choice) {
 
                 case 1:

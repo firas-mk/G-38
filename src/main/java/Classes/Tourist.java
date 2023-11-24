@@ -1,18 +1,16 @@
 package Classes;
 
 
-import Interface.GeneralFunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Tourist implements GeneralFunctions {
+public class Tourist{
     private String touristId;
     private String name;
     private String contactInformation;
@@ -280,6 +278,7 @@ public class Tourist implements GeneralFunctions {
     }
 
     // booking logic, books a tour either from search section or directly from favored tours, then add the booked  tour to a bookings.json
+
     public static void bookTour(int tourNr, String cityName, String JSONFilepath, String bookingContext){
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
 

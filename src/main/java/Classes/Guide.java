@@ -202,7 +202,6 @@ public class Guide {
         return false;
     }
 
-          /*    public static void showAvailableTours() {}*/
 
 
 
