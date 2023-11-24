@@ -210,25 +210,38 @@ public class UserPanel {
                     "[5] Log out" + ConsoleColors.RESET);
 
             int adminChoice = Integer.parseInt(scanner.nextLine());
+            String availableCitiesFilePath = "src/main/java/JSON_files/available_cities.json";
             switch (adminChoice) {
                 case 1:
                     Admin.showAllTours();
                     break;
                 case 2:
-                    String file = "src/main/java/JSON_files/available_cities.json";
-                    getAvailableCities(file);
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n--------------------");
+                    System.out.println("| Available cities |");
+                    System.out.println("--------------------" + ConsoleColors.RESET);
+                    getAvailableCities(availableCitiesFilePath);
                     Admin.addTour();
                     break;
 
                 case 3:
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Available Tours: ");
-                    String fileForDelete = "src/main/java/JSON_files/available_cities.json";
-                    getAvailableCities(fileForDelete);
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT +"Enter the city number for the tour you want to delete: ");
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n--------------------");
+                    System.out.println("| Available cities |");
+                    System.out.println("--------------------" + ConsoleColors.RESET);
+                    getAvailableCities(availableCitiesFilePath);
+                    System.out.println(ConsoleColors.YELLOW_BRIGHT +"||> Enter the city number for the tour you want to delete, [0 -> Main Menu]: ");
                     int cityNumberToDelete = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter the tour number you want to delete: ");
-                    int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
-                    Admin.deleteTour(cityNumberToDelete, tourNumberToDelete);
+                    if (cityNumberToDelete == 0){
+                        adminPanel();
+                    }else {
+                        System.out.println("||> Enter the tour number you want to delete, [0 -> Main Menu]: " + ConsoleColors.RESET);
+                        int tourNumberToDelete = Integer.parseInt(scanner.nextLine());
+                        if (tourNumberToDelete == 0){
+                            adminPanel();
+                        }else {
+                            Admin.deleteTour(cityNumberToDelete, tourNumberToDelete);
+                        }
+                        break;
+                    }
                     break;
 
                 case 4:
@@ -267,7 +280,6 @@ public class UserPanel {
 
             Scanner scanner = new Scanner(System.in);
             int choice = Integer.parseInt(scanner.nextLine());
-            System.out.println("HEi");
             switch (choice) {
 
                 case 1:
