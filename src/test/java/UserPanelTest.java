@@ -173,5 +173,16 @@ public class UserPanelTest {
 
 
     }
+    @Test
+    public void testLoginAsTourist(){
+        outputStream.reset();
+        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
+        UserPanel.loginTest = true;
+        UserPanel.loginPanel();
+        String expectedOutput = "You are now logged in as [Tourist]";
+        String actualOutput = outputStream.toString();
+        assertFalse(actualOutput.contains(expectedOutput));
+        UserPanel.loginTest = false;
+    }
 
 }

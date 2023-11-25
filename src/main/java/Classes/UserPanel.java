@@ -39,7 +39,7 @@ public class UserPanel {
             }
         }
     }
-
+    public static boolean loginTest = false;
     public static void loginPanel() {
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------"+
                 "\n| Login by typing in the number of one of the options below |"+
@@ -57,7 +57,8 @@ public class UserPanel {
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Tourist]" + ConsoleColors.RESET);
                 Tourist tourist = new Tourist("TouristId", "Tourist name", "Contact info");
                 loginVerified = true;
-                touristPanel();
+                if (!loginTest){
+                touristPanel();}
                 break;
             case 2:
                 loadingProgress();
