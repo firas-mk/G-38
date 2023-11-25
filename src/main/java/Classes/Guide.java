@@ -208,7 +208,6 @@ public class Guide {
 
             }
         }
-
         System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Tour does not exist!" + ConsoleColors.RESET);
         return false;
     }
