@@ -47,7 +47,28 @@ public class Tourist{
     /*       --- [Tourist] related functions ---          */
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    /* Method to display tours based on the chosen city by the user,
+    uses getAvailableCities() method to display available cities so the user can choose between.
+*/
+    public static void searchAndDisplayCities() {
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n--------------------");
+        System.out.println("| Available cities |");
+        System.out.println("--------------------" + ConsoleColors.RESET);
+        String availableCities = "src/main/java/JSON_files/available_cities.json";
+        UserPanel.getAvailableCities(availableCities);
 
+        Scanner userInputScanner = new Scanner(System.in);
+
+        System.out.println(ConsoleColors.YELLOW +"||> Enter the number of the city you want to explore, [0 -> Main menu]: " + ConsoleColors.RESET);
+        int userChoice = Integer.parseInt(userInputScanner.nextLine());
+
+
+        if (userChoice == 0) {
+            UserPanel.touristPanel(); // Go back to the main menu
+        } else {
+            Tourist.displayToursOfACity(userChoice);
+        }
+    }
     /* Method to display tours based on what city user chosen, it's displays tours dynamically,
         so whenever a new tour being added to a tour related json file it will be displayed.
     */
@@ -64,7 +85,7 @@ public class Tourist{
             int totalCities = jsonCityFile.size();
 
             if (cityNumber == 0 ) {
-                UserPanel.searchAndDisplayCities(); // Go back to the list of available cities
+                searchAndDisplayCities(); // Go back to the list of available cities
             } else if (cityNumber <= totalCities){
                 for (JsonNode city : jsonCityFile) {
                     cityNr = city.get("cityNr").asInt();
@@ -90,7 +111,7 @@ public class Tourist{
                     System.out.println(ConsoleColors.YELLOW + "||> Enter the number of the tour you want to explore, [0 -> Go Back]: " + ConsoleColors.RESET);
                     userChoice = Integer.parseInt(userInput.nextLine());
                     if (userChoice == 0) {
-                        UserPanel.searchAndDisplayCities();// Go back to the list of available cities
+                        searchAndDisplayCities();// Go back to the list of available cities
                     } else if (userChoice <= totalTours && userChoice >= 1){
                         bookOrAddTourToFavorite(userChoice, cityNumber, cityName, jsonTourFilePath);
 
@@ -99,7 +120,7 @@ public class Tourist{
 
             } else {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid city number, enter a valid number!" + ConsoleColors.RESET);
-                UserPanel.searchAndDisplayCities();
+                searchAndDisplayCities();
             }
         } catch (IOException e){
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Requested file not found" + ConsoleColors.RESET);
@@ -117,7 +138,7 @@ public class Tourist{
             // if the json-file is empty (which means if there is no tours available) a message will be printed to the user
             if (jsonFile.isEmpty()){
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! " + ConsoleColors.RESET);
-                UserPanel.searchAndDisplayCities();
+                searchAndDisplayCities();
             }else {
                 int totalAvailableTours = 0;
 
@@ -133,7 +154,7 @@ public class Tourist{
                     if (status.equals("available")){
 
                         System.out.println(
-                                "\n"+ ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourNr + ConsoleColors.RESET +
+                                ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT +  tourNr + ConsoleColors.RESET +
                                         "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Location: " + location +
                                         "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Date: " + date +
                                         "\n" + ConsoleColors.RED_BOLD_BRIGHT +"[*] " + ConsoleColors.RESET + "Time: " + time +
@@ -146,7 +167,7 @@ public class Tourist{
                             }}
                     } else if (totalAvailableTours == 0) {
                         System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! " + ConsoleColors.RESET);
-                        UserPanel.searchAndDisplayCities();
+                        searchAndDisplayCities();
                     }
 
 
@@ -314,7 +335,7 @@ public class Tourist{
                     objectMapper.writeValue(new File(bookingsJsonFilepath), bookingsArray);
                     payment();
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour booked successfully ✔" + ConsoleColors.RESET);
-                    UserPanel.searchAndDisplayCities();
+                    searchAndDisplayCities();
                     break;
 
                 case "Favorite":
@@ -420,7 +441,7 @@ public class Tourist{
                     break;
                 case 1:
                     addTourToFavorite(selectedTour, cityNr, cityName, JSONFilepath);
-                    UserPanel.searchAndDisplayCities(); // Automatically go back to the list of available cities
+                    searchAndDisplayCities(); // Automatically go back to the list of available cities
                     break;
                 case 2:
                     bookTour(selectedTour, cityName, JSONFilepath,"Search");

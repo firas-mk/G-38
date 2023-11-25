@@ -34,8 +34,6 @@
     "description": "Walking tour of Bryggen's historic architecture",
     "price": "190 kr",
     "status" : "unavailable",
-    "guideID" : "GuideId",
+    "guideID" : "",
     "touristID" : ""
-  }
-
-]
+  }]

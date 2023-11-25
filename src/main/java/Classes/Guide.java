@@ -36,8 +36,12 @@ public class Guide {
         try {
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the city number for the tour: ");
+            System.out.println(ConsoleColors.YELLOW + "||> Enter the city number to view related tours, [0 -> Main Menu]: " + ConsoleColors.RESET);
             int cityNumber = Integer.parseInt(scanner.nextLine());
+            if(cityNumber == 0){
+                UserPanel.GuidePanel.guideMenu();
+            }else {
+
             String filePath = getFilePath(cityNumber);
             ArrayNode toursArray = (ArrayNode) objectMapper.readTree(new File(filePath));
 
@@ -72,44 +76,51 @@ public class Guide {
                 System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Oops, looks like there is no tours available! \n" + ConsoleColors.RESET);
 
             }
-            System.out.println("Enter the tour number you want to book: ");
+            System.out.println(ConsoleColors.YELLOW + "||> Enter the tour number you want to book, [0 -> Main Menu]: ");
             int tourNumber = Integer.parseInt(scanner.nextLine());
+            if (tourNumber == 0){
+                UserPanel.GuidePanel.guideMenu();
+            } else{
 
-            if (!filePath.equals("")) {
-                if (!tourExists(filePath, tourNumber)) {
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Tour number does not exist!" + ConsoleColors.RESET);
-                    return;
-                }
-                // Read the existing tours from the JSON file
-                for (JsonNode tour : toursArray) {
-                    if (tour.get("tourNr").asInt() == tourNumber) {
-                        if (tour instanceof ObjectNode) {
-                            ObjectNode tourObject = (ObjectNode) tour;
+                if (!filePath.equals("")) {
+                    if (!tourExists(filePath, tourNumber)) {
+                        System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Tour number does not exist!" + ConsoleColors.RESET);
+                        return;
+                    }
+                    // Read the existing tours from the JSON file
+                    for (JsonNode tour : toursArray) {
+                        if (tour.get("tourNr").asInt() == tourNumber) {
+                            if (tour instanceof ObjectNode) {
+                                ObjectNode tourObject = (ObjectNode) tour;
 
-                            // booking
-                            System.out.println("Tour booked successfully! ");
-                            // Display  values
-                            System.out.println("You have bookde this tour:");
-                            System.out.println("Location: " + tourObject.get("location").asText());
-                            System.out.println("Date: " + tourObject.get("date").asText());
-                            System.out.println("Time: " + tourObject.get("time").asText());
-                            System.out.println("Description: " + tourObject.get("description").asText());
-                            System.out.println("Price: " + tourObject.get("price").asText());
-                            System.out.println("");
-                            // booking
-                            System.out.println("Tour booked successfully! ");
-                            tourObject.put("status", "available");
-                            tourObject.put("guideID", guideId);
+                                // booking
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "◆ Tour booked successfully ✔" + ConsoleColors.RESET);
 
-                            // Write the updated tours array back to the JSON file
-                            objectMapper.writeValue(new File(filePath), toursArray);
+                                // Display  values
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------");
+                                System.out.println("| You have booked this tour |");
+                                System.out.println("-----------------------------" + ConsoleColors.RESET);
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "[*]"  + ConsoleColors.RESET + " Location: " + tourObject.get("location").asText());
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "[*]"  + ConsoleColors.RESET + " Date: " + tourObject.get("date").asText());
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "[*]"  + ConsoleColors.RESET + " Time: " + tourObject.get("time").asText());
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "[*]"  + ConsoleColors.RESET + " Description: " + tourObject.get("description").asText());
+                                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "[*]"  + ConsoleColors.RESET + " Price: " + tourObject.get("price").asText());
 
-                            return;
+                                // make tour available to tourist and add guideID
+                                tourObject.put("status", "available");
+                                tourObject.put("guideID", guideId);
+
+                                // Write the updated tours array back to the JSON file
+                                objectMapper.writeValue(new File(filePath), toursArray);
+
+                                return;
+                            }
                         }
                     }
+                } else {
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid choice!" + ConsoleColors.RESET);
                 }
-            } else {
-                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Invalid choice!" + ConsoleColors.RESET);
+            }
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -126,28 +126,6 @@ public class UserPanel {
         }
     }
 
-    /* Method to display tours based on the chosen city by the user,
-        uses getAvailableCities() method to display available cities so the user can choose between.
-    */
-    public static void searchAndDisplayCities() {
-        System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + ConsoleColors.YELLOW_UNDERLINED + "Available Cities:" + ConsoleColors.RESET );
-        String availableCities = "src/main/java/JSON_files/available_cities.json";
-        getAvailableCities(availableCities);
-
-        Scanner userInputScanner = new Scanner(System.in);
-
-        System.out.println(ConsoleColors.YELLOW +"||> Enter the number of the city you want to explore, [0 -> Main menu]: " + ConsoleColors.RESET);
-        int userChoice = Integer.parseInt(userInputScanner.nextLine());
-
-
-        if (userChoice == 0) {
-            touristPanel(); // Go back to the main menu
-        } else {
-            Tourist.displayToursOfACity(userChoice);
-        }
-    }
-
-
     /**
      *
      *  <b>touristPanel()</b> is a function that gives the user who's logged in as "Tourist" several options to chose
@@ -174,7 +152,7 @@ public class UserPanel {
         int userChoice = Integer.parseInt(userInput.nextLine());
         switch (userChoice) {
             case 1:
-                UserPanel.searchAndDisplayCities();
+                Tourist.searchAndDisplayCities();
                 break;
             case 2:
                 Tourist.getFavoriteTours(); // Show favorite tours
@@ -283,6 +261,9 @@ public class UserPanel {
             switch (choice) {
 
                 case 1:
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n--------------------");
+                    System.out.println("| Available cities |");
+                    System.out.println("--------------------" + ConsoleColors.RESET);
                     getAvailableCities("src/main/java/JSON_files/available_cities.json");
 
                     Guide.bookTour("GuideId");
