@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UserPanel {
 
-    static boolean loginVerified = false;
+    public static boolean loginVerified = false;
     public static void loadingProgress(){
         int totalTasks = 5;
 
@@ -65,14 +65,18 @@ public class UserPanel {
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide]" + ConsoleColors.RESET);
                 Guide guide = new Guide("GuideId", "Guide Name", "Contact Info");
                 loginVerified = true;
+                if (!loginTest){
                 guidePanel();
+                }
                 break;
             case 3:
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Admin]" + ConsoleColors.RESET);
                 Admin admin = new Admin();
                 loginVerified = true;
+                if (!loginTest){
                 adminPanel();
+                }
                 break;
             /*More code goes here, such as Admin Panel etc.*/
             default:
