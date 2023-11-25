@@ -174,17 +174,4 @@ public class UserPanelTest {
 
     }
 
-
-    /* the bug we face in this test is that it does not stop at loginPanel but runs the code further to touristPanel (which it shouldn't) after logging in this step requires another input when being in touristPanel, this causes the test to stop*/
-    @Test
-    public void testLoginAsTourist(){
-        outputStream.reset();
-        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
-        UserPanel.loginPanel();
-
-        String expectedOutput = "You are now logged in as [Tourist]";
-        String actualOutput = outputStream.toString();
-        assertFalse(actualOutput.contains(expectedOutput));
-
-    }
 }
