@@ -25,6 +25,33 @@ public class UserPanelTest {
         System.setOut(stdOutput);
         System.setIn(System.in);
     }
+    @Test
+    public void testLoginAsTourist(){
+        outputStream.reset();
+        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
+        UserPanel.loginTest = true;
+        UserPanel.loginPanel();
+        assertTrue(UserPanel.loginVerified);
+        UserPanel.loginTest = false;
+    }
+    @Test
+    public void testLoginAsGuide(){
+        outputStream.reset();
+        System.setIn(new ByteArrayInputStream("2\n".getBytes()));
+        UserPanel.loginTest = true;
+        UserPanel.loginPanel();
+        assertTrue(UserPanel.loginVerified);
+        UserPanel.loginTest = false;
+    }
+    @Test
+    public void testLoginAsAdmin(){
+        outputStream.reset();
+        System.setIn(new ByteArrayInputStream("3\n".getBytes()));
+        UserPanel.loginTest = true;
+        UserPanel.loginPanel();
+        assertTrue(UserPanel.loginVerified);
+        UserPanel.loginTest = false;
+    }
 
     @Test
     public void testLogOutNoAsInput() {
@@ -81,7 +108,7 @@ public class UserPanelTest {
     }
 
     @Test
-    public void testTourPrice175KrExistsInHaldenTours() {
+    public void testGetAPriceOfATour() {
         outputStream.reset();
         String HaldenCityTours = "src/main/java/JSON_files/halden_tours.json";
         Tourist.getToursFromJSONFile(HaldenCityTours);
@@ -173,16 +200,6 @@ public class UserPanelTest {
 
 
     }
-    @Test
-    public void testLoginAsTourist(){
-        outputStream.reset();
-        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
-        UserPanel.loginTest = true;
-        UserPanel.loginPanel();
-        String expectedOutput = "You are now logged in as [Tourist]";
-        String actualOutput = outputStream.toString();
-        assertFalse(actualOutput.contains(expectedOutput));
-        UserPanel.loginTest = false;
-    }
+
 
 }
