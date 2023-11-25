@@ -92,10 +92,10 @@ public class UserPanel {
 
         }else if(userChoice.equals("n") || userChoice.equals("N")) {
             System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Thank you for using Tourly. See you later ;)" + ConsoleColors.RESET);
-
+            loginVerified = false;
         } else {
             System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "◆ Timed out due to invalid input, you are successfully logged out" + ConsoleColors.RESET);
-
+            loginVerified = false;
         }
     }
 
