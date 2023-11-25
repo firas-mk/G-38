@@ -63,9 +63,8 @@ public class UserPanel {
                 loadingProgress();
                 System.out.println(ConsoleColors.YELLOW + "You are now logged in as" + ConsoleColors.RED_BOLD_BRIGHT + " [Guide]" + ConsoleColors.RESET);
                 Guide guide = new Guide("GuideId", "Guide Name", "Contact Info");
-                GuidePanel guidePanel = new GuidePanel(guide);
                 loginVerified = true;
-                guidePanel.guideMenu();
+                guidePanel();
                 break;
             case 3:
                 loadingProgress();
@@ -173,6 +172,8 @@ public class UserPanel {
 
 
     }
+
+    //adminPanel
     public static void adminPanel() {
         boolean isAdminRunning = true;
         Scanner scanner = new Scanner(System.in);
@@ -238,52 +239,44 @@ public class UserPanel {
         }
     }
 
+    //GuidePanel
+    public static void guidePanel() {
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
+        System.out.println("|        Guide Menu: Choose one of the options below        |");
+        System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT +
+                "[1] Find Tours to book\n" +
+                "[2] Show Booked tours\n" +
+                "[3] Log Out" + ConsoleColors.RESET);
 
-//GuidePanel
-    public static class GuidePanel {
-        private Guide guide;
+        Scanner scanner = new Scanner(System.in);
+        int choice = Integer.parseInt(scanner.nextLine());
+        switch (choice) {
 
-        public GuidePanel(Guide guide) {
-            this.guide = guide;
+            case 1:
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n--------------------");
+                System.out.println("| Available cities |");
+                System.out.println("--------------------" + ConsoleColors.RESET);
+                getAvailableCities("src/main/java/JSON_files/available_cities.json");
+
+                Guide.bookTour("GuideId");
+                guidePanel();
+                break;
+            case 2:
+                Guide.showBookedTours("GuideId");
+                guidePanel();
+                break;
+            case 3:
+                logOut();
+                break;
+            default:
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
+                guidePanel();
+                break;
         }
+    }
 
-        public static void guideMenu() {
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-------------------------------------------------------------");
-            System.out.println("|        Guide Menu: Choose one of the options below        |");
-            System.out.println("-------------------------------------------------------------" + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.ORANGE_BOLD_BRIGHT +
-                    "[1] Find Tours to book\n" +
-                    "[2] Show Booked tours\n" +
-                    "[3] Log Out" + ConsoleColors.RESET);
 
-            Scanner scanner = new Scanner(System.in);
-            int choice = Integer.parseInt(scanner.nextLine());
-            switch (choice) {
-
-                case 1:
-                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n--------------------");
-                    System.out.println("| Available cities |");
-                    System.out.println("--------------------" + ConsoleColors.RESET);
-                    getAvailableCities("src/main/java/JSON_files/available_cities.json");
-
-                    Guide.bookTour("GuideId");
-                    guideMenu();
-                    break;
-                case 2:
-                    Guide.showBookedTours("GuideId");
-                    guideMenu();
-                    break;
-                case 3:
-                    logOut();
-                    break;
-                default:
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Invalid number! Enter 1, 2, or 3 " + ConsoleColors.RESET);
-                    guideMenu();
-                    break;
-            }
-        }
-
-}
 
 }
 

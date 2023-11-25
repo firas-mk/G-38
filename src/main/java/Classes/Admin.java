@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Admin extends UserPanel {
+public class Admin {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -316,8 +316,6 @@ public class Admin extends UserPanel {
             e.printStackTrace();
         }
     }
-
-
 
     public static String getFilePath(int tourNumber) {
         try {
