@@ -107,11 +107,11 @@ public class UserPanelTest {
     public void testNewTourCanBeAddedToOsloTours() {
         int cityNumber = 1;
 
-        String simulatedUserInput = cityNumber + "\nLocation1\n2023-01-01\n10:00\nA beautiful tour\n500 kr\n";
+        String simulatedUserInput = cityNumber + "\nLocation1\n2023-01-01\n10:00\nA beautiful tour\n500\n";
         System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
 
         Admin.addTour();
-        String expectedOutput = "Tour added successfully!";
+        String expectedOutput = "◆ Tour added successfully ✔";
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput), "Tour was not added successfully");
 
@@ -123,11 +123,11 @@ public class UserPanelTest {
         int cityNumber = 1;
         int tourNumberToEdit = 2;
 
-        String simulatedUserInput = cityNumber + "\n" + tourNumberToEdit + "\nNew Location\n2023-01-02\n11:00\nUpdated description\n550 kr\n";
+        String simulatedUserInput = cityNumber + "\n" + tourNumberToEdit + "\nThe Norwegian Opera & Ballet\n30.10.2023\n17:00\nBehind-the-scenes tour of the Opera House\n225\n";
         System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
 
         Admin.editTour();
-        String expectedOutput = "Tour edited successfully!";
+        String expectedOutput = "◆ Tour edited successfully ✔";
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput), "Tour was not edited successfully");
 
@@ -143,7 +143,7 @@ public class UserPanelTest {
         int tourNumberToDelete = 3;
 
         Admin.deleteTour(cityNumber, tourNumberToDelete);
-        String expectedOutput = "Tour deleted successfully!";
+        String expectedOutput = "◆ Tour deleted successfully ✔";
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput), "Tour was not deleted successfully");
     }
@@ -156,7 +156,7 @@ public class UserPanelTest {
         int deletedTourNr = 3;
 
         Guide.tourExists(OsloCityTours, deletedTourNr);
-        String expectedMsg = "Tour does not exist";
+        String expectedMsg = "◆ Tour does not exist!";
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedMsg));
     }

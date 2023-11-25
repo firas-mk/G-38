@@ -39,7 +39,7 @@ public class Guide {
             System.out.println(ConsoleColors.YELLOW + "||> Enter the city number to view related tours, [0 -> Main Menu]: " + ConsoleColors.RESET);
             int cityNumber = Integer.parseInt(scanner.nextLine());
             if(cityNumber == 0){
-                UserPanel.GuidePanel.guideMenu();
+                UserPanel.guidePanel();
             }else {
 
             String filePath = getFilePath(cityNumber);
@@ -79,7 +79,7 @@ public class Guide {
             System.out.println(ConsoleColors.YELLOW + "||> Enter the tour number you want to book, [0 -> Main Menu]: ");
             int tourNumber = Integer.parseInt(scanner.nextLine());
             if (tourNumber == 0){
-                UserPanel.GuidePanel.guideMenu();
+                UserPanel.guidePanel();
             } else{
 
                 if (!filePath.equals("")) {
@@ -208,15 +208,9 @@ public class Guide {
 
             }
         }
-
-        System.out.println("Tour does not exist");
+        System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "◆ Tour does not exist!" + ConsoleColors.RESET);
         return false;
     }
-
-
-
-
-
 
     }
 
