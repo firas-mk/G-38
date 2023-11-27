@@ -112,8 +112,7 @@ public class Guide {
 
                                 // Write the updated tours array back to the JSON file
                                 objectMapper.writeValue(new File(filePath), toursArray);
-
-                                return;
+                                UserPanel.guidePanel();
                             }
                         }
                     }

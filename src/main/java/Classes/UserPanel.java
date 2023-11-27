@@ -251,7 +251,6 @@ public class UserPanel {
                 getAvailableCities("src/main/java/JSON_files/available_cities.json");
 
                 Guide.bookTour("GuideId");
-                guidePanel();
                 break;
             case 2:
                 Guide.showBookedTours("GuideId");
