@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 public class TuristTest {
+
     private final PrintStream stdOutput = System.out;
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
