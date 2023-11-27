@@ -37,13 +37,14 @@ public class AdminTest {
     public void testNewTourCanBeAddedToOsloTours() {
         int cityNumber = 1;
 
+        // simulate tour info inputs
         String simulatedUserInput = cityNumber + "\nLocation1\n2023-01-01\n10:00\nA beautiful tour\n500\n";
         System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
 
         Admin.addTour();
         String expectedOutput = "◆ Tour added successfully ✔";
         String actualOutput = outputStream.toString();
-        assertTrue(actualOutput.contains(expectedOutput), "Tour was not added successfully");
+        assertTrue(actualOutput.contains(expectedOutput));
 
         System.setIn(System.in);
     }

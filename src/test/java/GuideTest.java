@@ -35,12 +35,13 @@ public class GuideTest {
         outputStream.reset();
 
         System.setIn(new ByteArrayInputStream("1\n2\n".getBytes())); // chooses Oslo then tour nr. 2
+        Guide.bookingTest = true;
         Guide.bookTour("GuideId");
 
         String expectedOutput = "◆ Tour booked successfully ✔";
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput));
-
+        Guide.bookingTest = false;
     }
 
 

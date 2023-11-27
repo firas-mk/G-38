@@ -22,7 +22,7 @@ public class Guide {
         this.contactInformation = contactInformation;
     }
     private static final ObjectMapper objectMapper = new ObjectMapper();
-
+    public static boolean bookingTest = false;
 
 
     public String getGuideId() {
@@ -112,7 +112,10 @@ public class Guide {
 
                                 // Write the updated tours array back to the JSON file
                                 objectMapper.writeValue(new File(filePath), toursArray);
-                                UserPanel.guidePanel();
+                                if (!bookingTest){
+                                    UserPanel.guidePanel();
+
+                                }
 
                             }
                         }

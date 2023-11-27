@@ -25,7 +25,7 @@ public class TuristTest {
     @Test
     public void testLoginAsTourist(){
         outputStream.reset();
-        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
+        System.setIn(new ByteArrayInputStream("1\n".getBytes())); // Simulate userInput
         UserPanel.loginTest = true;
         UserPanel.loginPanel();
         assertTrue(UserPanel.loginVerified);
