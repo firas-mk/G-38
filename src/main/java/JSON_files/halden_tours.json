@@ -26,5 +26,6 @@
   "description" : "Guided tour of the charming Idd Church",
   "price" : "160 kr",
   "status" : "unavailable",
+  "guideID" : "",
   "touristID" : ""
 } ]
