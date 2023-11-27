@@ -265,13 +265,12 @@ public class Tourist{
                     String location = tour.get("location").asText();
                     String date = tour.get("date").asText();
                     String time = tour.get("time").asText();
-                    String tourID = tour.get("tourID").asText();
+
 
                     System.out.println(ConsoleColors.YELLOW_UNDERLINED + ConsoleColors.YELLOW_BOLD_BRIGHT + "[*] Tour number " + ConsoleColors.RED_BOLD_BRIGHT + tourNr + ConsoleColors.RESET +
                             "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "City: " + city +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Location: " + location +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "Date & Time: " + date + " - " + time +
-                                    "\n" + ConsoleColors.RED_BOLD_BRIGHT + "[*] " + ConsoleColors.RESET + "TourID: " + tourID +
                                     "\n" + ConsoleColors.RED_BOLD_BRIGHT + "===============================" + ConsoleColors.RESET
                     );
                 }
@@ -393,7 +392,6 @@ public class Tourist{
     therefore it moved into an own function */
     public static void assignJsonValues(JsonNode bookingFile, ObjectNode bookedTour, JsonNode tour, String city) {
         int tourNumber;
-        String tourID = tour.get("tourID").asText();
         String location = tour.get("location").asText();
         String date = tour.get("date").asText();
         String time = tour.get("time").asText();
@@ -406,7 +404,6 @@ public class Tourist{
 
         tourNumber = bookingFile.size();
         bookedTour.put("tourNr", tourNumber + 1);
-        bookedTour.put("tourID", tourID);
         bookedTour.put("city", city);
         bookedTour.put("location", location);
         bookedTour.put("date", date);
@@ -507,6 +504,7 @@ public class Tourist{
             for (JsonNode tour : cityToursJsonFile) {
                 tourNumber = tour.get("tourNr").asInt();
                 if (tourNumber == tourNr){
+                    int tourID = tour.get("tourID").asInt();
                     location = tour.get("location").asText();
                     String date = tour.get("date").asText();
                     String time = tour.get("time").asText();
@@ -517,6 +515,7 @@ public class Tourist{
 
                     tourNumber = favoriteToursJsonFile.size();
                     favoredTour.put("tourNr", tourNumber + 1);
+                    favoredTour.put("tourID", tourID);
                     favoredTour.put("city", cityName);
                     favoredTour.put("cityNr", cityNr);
                     favoredTour.put("location", location);

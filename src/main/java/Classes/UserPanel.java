@@ -150,7 +150,6 @@ public class UserPanel {
 
             case 3:
                 Tourist.getAndDisplayBookedTours();
-                touristPanel();
                 break;
             case 4:
                 UserPanel.logOut();
