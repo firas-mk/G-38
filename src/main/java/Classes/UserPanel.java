@@ -249,7 +249,6 @@ public class UserPanel {
                 System.out.println("| Available cities |");
                 System.out.println("--------------------" + ConsoleColors.RESET);
                 getAvailableCities("src/main/java/JSON_files/available_cities.json");
-
                 Guide.bookTour("GuideId");
                 break;
             case 2:
