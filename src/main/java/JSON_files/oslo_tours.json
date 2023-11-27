@@ -13,12 +13,12 @@
   "tourNr" : 2,
   "tourID" : 997865,
   "location" : "The Norwegian Opera & Ballet",
-  "date" : "28.10.2023",
-  "time" : "19:00",
+  "date" : "30.10.2023",
+  "time" : "17:00",
   "description" : "Behind-the-scenes tour of the Opera House",
-  "price" : "220 kr",
-  "status" : "unavailable",
-  "guideID" : "",
+  "price" : "225 kr",
+  "status" : "available",
+  "guideID" : "GuideId",
   "touristID" : ""
 }, {
   "tourNr" : 3,
@@ -28,7 +28,7 @@
   "time" : "11:00",
   "description" : "Guided sculpture tour in Vigeland Park",
   "price" : "180 kr",
-  "status" : "unavailable",
-  "guideID" : "",
+  "status" : "available",
+  "guideID" : "GuideId",
   "touristID" : ""
-}]
+} ]
