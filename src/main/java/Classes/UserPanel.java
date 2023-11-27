@@ -104,7 +104,7 @@ public class UserPanel {
     }
 
     /* Method to get available cities from a JSON file,
-        whenever a cities is being added to the json file it will dynamically be printed
+        whenever a new city is being added to the json file it will dynamically be displayed
     */
     public static void getAvailableCities(String file){
         try{
@@ -129,20 +129,7 @@ public class UserPanel {
         }
     }
 
-    /**
-     *
-     *  <b>touristPanel()</b> is a function that gives the user who's logged in as "Tourist" several options to chose
-     *  from in order to navigate further
-     *  <p>
-     *  We handle it as a "navigation panel/bar" or "main menu" where the the user can choose between the options in order to:
-     *  </p>
-     *  <ul>
-     *      <li> Show available tours
-     *      <li> Show favorite
-     *      <li> Show booked tours
-     *      <li> log out
-     * </ul>
-     */ //DESC-Javadoc ---> touristPanel()
+     // touristPanel()
     public static void touristPanel(){
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "\n-----------------------------------------------------------------");
         System.out.println("| You are now in the main menu, choose one of the options below |");

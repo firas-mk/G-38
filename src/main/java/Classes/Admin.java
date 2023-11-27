@@ -95,7 +95,7 @@ public class Admin {
             }else {
                 String filePath = getFilePath(cityNumber);
 
-                // gi turen et nummer i turliste dinamisk
+                // give the new tour a tour number dynamically
                 int tourNumber = 0;
                 JsonNode cityToursFile = objectMapper.readTree(new File(filePath));
                 tourNumber = cityToursFile.size();
@@ -334,17 +334,5 @@ public class Admin {
         return "";
 
     }
-    public static boolean tourExists(String filePath, int tourNumber) throws IOException {
-        JsonNode tours = objectMapper.readTree(new File(filePath));
-        ArrayNode toursArray = (ArrayNode) tours;
 
-        for (JsonNode tour : toursArray) {
-            int existingTourNumber = tour.get("tourNr").asInt();
-            if (existingTourNumber == tourNumber) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,9 +22,6 @@ public class UserPanelTest {
         System.setIn(System.in);
     }
 
-
-
-
     @Test
     public void testLogOutNoAsInput() {
         System.setIn(new ByteArrayInputStream("n\n".getBytes()));
@@ -35,9 +31,6 @@ public class UserPanelTest {
         String actualOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput));
     }
-
-    /* the bug we face in this test is that it does not stop at loginPanel but runs the code further to touristPanel (which it shouldn't) after logging in
-    * this step requires another input when being in touristPanel, this causes the test to stop*/
 
     @Test
     public void testLogOutYesInput() {
